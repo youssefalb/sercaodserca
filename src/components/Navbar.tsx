@@ -56,12 +56,12 @@ export default function Navbar() {
                 <div className="flex items-center">
                     <a
                         href="#hero"
-                        className={`text-black text-2xl font-bold`}
+                        className="text-black text-2xl font-bold"
                         onClick={() => handleNavLinkClick('hero')}
                     >
-
-                        <img src={logo} alt="WeboKraft" ref={logoRef} style={{ width: '145px', height: 'auto' }} />
+                        <img src={logo} alt="WeboKraft" ref={logoRef} style={{ width: '80px', height: 'auto' }} />
                     </a>
+
 
                 </div>
                 {/* Desktop Menu */}
