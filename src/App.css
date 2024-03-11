@@ -36,3 +36,41 @@
     transform: rotate(360deg);
   }
 }
+html {
+  scroll-behavior: smooth;
+}
+
+.nav-link {
+    position: relative;
+    padding-left: 20px;
+    margin-right: 10px; 
+}
+
+
+html, body {
+    overflow-x: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border: 2px solid #bbb; 
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.nav-link.active::before {
+    background-color: #000; 
+    border-color: #000; 
+    font-weight: bold;
+}
+
+.nav-link.active {
+    color: #222222; 
+    font-weight: bold; /* Optional: Makes the active nav-link text bold */
+}
