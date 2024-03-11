@@ -5,7 +5,14 @@ module.exports = {
   ],
   
   theme: {
-    extend: {},
+    extend: {
+         colors: {
+        'yellow': '#FED67A', 
+        'purple': '#766DF1',
+        'black': '#222222', 
+      },
+
+    },
   },
   plugins: [],
 }
