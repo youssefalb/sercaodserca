@@ -4,7 +4,8 @@ import { ReactComponent as PhoneIcon } from '../assets/icons/phone.svg';
 
 const About = () => {
     return (
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row-reverse">
+        <section id="about" className="bg-white pt-5 pb-5 px-8 sm:px-6 lg:px-8 relative shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row-reverse">
+
             {/* Text Section */}
             <div className="w-full md:w-3/4 p-8">
                 <h2 className="text-2xl font-semibold mb-6 text-center md:text-left">About the Fund</h2>
@@ -21,7 +22,7 @@ const About = () => {
                         +48 880 468 972
                     </p>
                 </div>
-                <div className="text-sm mb-2 text-center md:text-left space-x-1">
+                <div className="text-sm mb-2 text-center md:text-left space-x-4">
                     <span>REGON: 522639821</span>
                     <span>NIP: 6312706316</span>
                     <span>KRS: 0000983816</span>
@@ -32,7 +33,7 @@ const About = () => {
             <div className="w-full md:w-1/4 p-4 flex justify-center md:justify-end">
                 <img src="/about_image.png" alt="Heart shapes with flags" className="object-cover object-center w-full  h-full rounded-2xl shadow-lg" />
             </div>
-        </div>
+        </section>
     );
 };
 

@@ -12,10 +12,11 @@ export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('');
     const logoRef = useRef(null);
-
+    const loginBtnRef = useRef(null);
+    const registerBtnRef = useRef(null);
     const navItems = [
         { id: 'home', name: 'Головна' },
-        { id: 'about-fund', name: 'Про фонд' },
+        { id: 'about', name: 'Про фонд' },
         { id: 'partners', name: 'Партнери' },
         { id: 'help-army', name: 'Допомога армії' },
         { id: 'auctions', name: 'Аукціони' },
@@ -31,12 +32,12 @@ export default function Navbar() {
 
     useEffect(() => {
         // Set initial states for animation if needed
-        gsap.set(logoRef.current, { opacity: 0, x: -50 });
-        gsap.set(navLinksRef.current, { opacity: 0, x: -50 });
+        gsap.set([logoRef.current, ...navLinksRef.current, loginBtnRef.current, registerBtnRef.current], { opacity: 0, x: -50 });
+
 
         // Animate to fully visible state
         gsap.to(logoRef.current, { duration: 1, opacity: 1, x: 0, ease: 'power1.out' });
-        gsap.to(navLinksRef.current, { duration: 0.5, opacity: 1, x: 0, stagger: 0.1, ease: 'power1.out' });
+        gsap.to([...navLinksRef.current, loginBtnRef.current, registerBtnRef.current], { duration: 0.5, opacity: 1, x: 0, stagger: 0.1, ease: 'power1.out' });
 
 
         return () => {
@@ -79,35 +80,35 @@ export default function Navbar() {
                     ))}
                 </nav>
                 {/* CTA button */}
-                <a
-                    className="hidden lg:block text-white bg-black px-4 py-2 rounded-md"
+                <button
+                    className="hidden lg:block text-white bg-black px-4 py-2 rounded-md hover:bg-gray-500"
                     onClick={() => handleNavLinkClick('login')}
-                    ref={addToNavLinksRef} // Use the ref adding function here
+                    ref={loginBtnRef} // Use the ref adding function here
                 >
                     Login
-                </a>
-                <a
-                    className="hidden lg:block text-white bg-black px-4 py-2 rounded-md ml-7"
+                </button>
+                <button
+                    className="hidden lg:block text-white bg-black px-4 py-2 rounded-md ml-7 hover:bg-gray-500"
                     onClick={() => handleNavLinkClick('register')}
-                    ref={addToNavLinksRef} // Use the ref adding function here
+                    ref={registerBtnRef} // Use the ref adding function here
                 >
                     Register
-                </a>
+                </button>
 
 
                 <div className="flex lg:hidden">
-                    <a
-                        className="text-white bg-black px-4 py-2 rounded-md mr-2"
+                    <button
+                        className="text-white bg-black px-4 py-2 rounded-md mr-2 hover:bg-gray-500"
                         onClick={() => handleNavLinkClick('login')}
                     >
                         Login
-                    </a>
-                    <a
-                        className="text-white bg-black px-4 py-2 rounded-md"
+                    </button>
+                    <button
+                        className="text-white bg-black px-4 py-2 rounded-md hover:bg-gray-500"
                         onClick={() => handleNavLinkClick('register')}
                     >
                         Register
-                    </a>
+                    </button>
                 </div>
                 {/* Hamburger Icon for mobile */}
                 <div className="lg:hidden">
