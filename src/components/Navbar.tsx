@@ -59,7 +59,7 @@ export default function Navbar() {
                         className="text-black text-2xl font-bold"
                         onClick={() => handleNavLinkClick('hero')}
                     >
-                        <img src={logo} alt="WeboKraft" ref={logoRef} style={{ width: '80px', height: 'auto' }} />
+                        <img src={logo} alt="WeboKraft" ref={logoRef} style={{ width: '40px', height: 'auto' }} />
                     </a>
 
 
@@ -78,7 +78,37 @@ export default function Navbar() {
                         </a>
                     ))}
                 </nav>
+                {/* CTA button */}
+                <a
+                    className="hidden lg:block text-white bg-black px-4 py-2 rounded-md"
+                    onClick={() => handleNavLinkClick('login')}
+                    ref={addToNavLinksRef} // Use the ref adding function here
+                >
+                    Login
+                </a>
+                <a
+                    className="hidden lg:block text-white bg-black px-4 py-2 rounded-md ml-7"
+                    onClick={() => handleNavLinkClick('register')}
+                    ref={addToNavLinksRef} // Use the ref adding function here
+                >
+                    Register
+                </a>
 
+
+                <div className="flex lg:hidden">
+                    <a
+                        className="text-white bg-black px-4 py-2 rounded-md mr-2"
+                        onClick={() => handleNavLinkClick('login')}
+                    >
+                        Login
+                    </a>
+                    <a
+                        className="text-white bg-black px-4 py-2 rounded-md"
+                        onClick={() => handleNavLinkClick('register')}
+                    >
+                        Register
+                    </a>
+                </div>
                 {/* Hamburger Icon for mobile */}
                 <div className="lg:hidden">
                     <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -86,6 +116,7 @@ export default function Navbar() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
                         </svg>
                     </button>
+
                 </div>
             </div>
 
@@ -103,6 +134,7 @@ export default function Navbar() {
                             </a>
                         ))}
                     </nav>
+
                 </div>
             )}
         </header>
