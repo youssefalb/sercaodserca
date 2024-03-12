@@ -2,11 +2,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { User } from 'firebase/auth';
+import { useAuth } from '../AuthContext'; // Adjust the path as necessary
+
+
 import logo from '../assets/images/logo.svg';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Navbar() {
+    const { login, signup, logout, currentUser } = useAuth(); // Destructure the needed functions and state
+    
     const navLinksRef = useRef<(HTMLAnchorElement | null)[]>([]);
     navLinksRef.current = [];
 
@@ -15,6 +21,9 @@ export default function Navbar() {
     const logoRef = useRef(null);
     const loginBtnRef = useRef(null);
     const registerBtnRef = useRef(null);
+    const [user, setUser] = useState<User | null>(null);
+    const [email, setEmail] = useState(''); // Add state for email
+    const [password, setPassword] = useState(''); // Add state for password
     const navItems = [
         { id: 'home', name: 'Головна' },
         { id: 'about', name: 'Про фонд' },
@@ -25,10 +34,25 @@ export default function Navbar() {
         { id: 'reports', name: 'Звіти' },
     ];
 
-    // This function should scroll to the right section
-    const handleNavLinkClick = (id: any) => {
-        setActiveSection(id);
-        setIsMenuOpen(false);
+    const handleNavLinkClick = async (id: string) => {
+        if (id === 'login') {
+            try {
+                await login('user@example.com', 'password'); // Placeholder credentials
+                // Handle UI changes or redirects after successful login
+            } catch (error) {
+                console.error('Error signing in:', error);
+            }
+        } else if (id === 'register') {
+            try {
+                // await logout();
+                await signup('user@example.com', 'password'); // Placeholder credentials
+            } catch (error) {
+                console.error('Error logging out:', error);
+            }
+        } else {
+            setActiveSection(id);
+            setIsMenuOpen(false);
+        }
     };
 
     useEffect(() => {
@@ -81,20 +105,39 @@ export default function Navbar() {
                     ))}
                 </nav>
                 {/* CTA button */}
+                {/* Conditional CTA buttons */}
+            {currentUser ? (
                 <button
                     className="hidden lg:block text-white bg-black px-4 py-2 rounded-md mx-6 hover:bg-gray-500"
-                    onClick={() => handleNavLinkClick('login')}
-                    ref={loginBtnRef} // Use the ref adding function here
+                    onClick={async () => {
+                        try {
+                            await logout();
+                        } catch (error) {
+                            console.error('Error logging out: ', error);
+                        }
+                    }}
                 >
-                    Login
+                    Logout
                 </button>
-                <button
-                    className="hidden lg:block text-white bg-black px-4 py-2 rounded-md ml-7 hover:bg-gray-500"
-                    onClick={() => handleNavLinkClick('register')}
-                    ref={registerBtnRef} // Use the ref adding function here
-                >
-                    Register
-                </button>
+            ) : (
+                <>
+                    <button
+                        className="hidden lg:block text-white bg-black px-4 py-2 rounded-md mx-6 hover:bg-gray-500"
+                        onClick={() => handleNavLinkClick('login')}
+                        ref={loginBtnRef}
+                    >
+                        Login
+                    </button>
+                    <button
+                        className="hidden lg:block text-white bg-black px-4 py-2 rounded-md ml-7 hover:bg-gray-500"
+                        onClick={() => handleNavLinkClick('register')}
+                        ref={registerBtnRef}
+                    >
+                        Register
+                    </button>
+                </>
+            )}
+
 
 
                 <div className="flex lg:hidden">
