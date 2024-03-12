@@ -2,7 +2,6 @@ import React from 'react';
 
 // Define the types for your component's props
 interface SupportCardProps {
-  backgroundUrl: string;
   title: string;
   description: string;
   buttonText: string;
