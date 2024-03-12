@@ -25,7 +25,7 @@ export default function HeroSection() {
 
     return (
         <section id="hero" className="bg-gray-100 pt-20 pb-20 px-8 sm:px-6 lg:px-8 relative ">
-            <div className="absolute inset-0 w-full h-full p-4">
+            <div className="absolute inset-0 w-full h-full lg:p-4">
                 {/* Add your mobile image with lg:hidden to only show on small screens and hide on large */}
                 <img src={heroImageMobile} alt="Background" className="lg:hidden w-full h-full object-cover rounded-2xl" />
                 {/* Keep your existing desktop image and add hidden lg:block to hide on small screens and show on large */}
@@ -36,10 +36,10 @@ export default function HeroSection() {
                     <p className="text-lg text-black mb-4">
                         Charity foundation "Od Serca do Serca"
                     </p>
-                    <h1 className="text-7xl font-bold text-gray-900 mb-6">With Ukraine <br></br>in heart</h1>
-    
+                    <h1 className="lg:text-7xl text-6xl font-bold text-gray-900 mb-6">With Ukraine <br></br>in heart</h1>
+
                     <div className="flex justify-center md:justify-start space-x-4 mt-10">
-                        <a href="#contact" className="bg-black text-white text-md font-medium px-8 py-2 rounded-full transition duration-300 ease-in-out hover:bg-gray-700">Make pledge</a>
+                        <a href="#contact" className="bg-black text-white text-md font-medium px-6 py-2 rounded-full transition duration-300 ease-in-out hover:bg-gray-700">Make pledge</a>
                         <a href="#services" className="text-md font-medium px-5 py-2 underline decoration-black decoration-2 underline-offset-4 hover:text-gray-600">Learn more</a>
                     </div>
                 </div>
