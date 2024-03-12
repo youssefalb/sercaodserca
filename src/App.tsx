@@ -10,7 +10,7 @@ import Partners from './components/Partners';
 import SupportCard from './components/SupportCrad';
 import Footer from './components/Footer';
 import { AuthProvider } from './AuthContext'; // Import AuthProvider
-
+import AuctionsSection from './components/AuctionsSection';
 export default function App() {
   return (
     <AuthProvider> {/* Wrap your components with AuthProvider */}
@@ -31,6 +31,7 @@ export default function App() {
           buttonText="Make a Contribution"
           rightImageUrl={rightSideImgTwo}
         />
+        <AuctionsSection />
         <Footer />
       </div>
     </AuthProvider>
