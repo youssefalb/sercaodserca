@@ -11,7 +11,7 @@ import Partners from './components/Partners';
 import SupportCard from './components/SupportCrad';
 import Footer from './components/Footer';
 import { AuthProvider } from './AuthContext'; // Import AuthProvider
-import LoginPage from './components/LoginPage';
+import AuctionsSection from './components/AuctionsSection';import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 
 export default function App() {
@@ -38,7 +38,8 @@ export default function App() {
                   buttonText="Make a Contribution"
                   rightImageUrl={rightSideImgTwo}
                 />
-                <Footer />
+                <AuctionsSection />
+        <Footer />
               </>
             } />
             <Route path="/login" element={<LoginPage />} />

@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { ReactComponent as EmailIcon } from '../assets/icons/email-white.svg';
 import { ReactComponent as PhoneIcon } from '../assets/icons/phone-white.svg';
-const NewFooter = () => {
+const Footer = () => {
     const leftColumnRef = useRef(null);
     const middleColumnRef = useRef(null);
     const bottomRowRef = useRef(null); // Ref for the bottom row on desktop
@@ -14,7 +14,7 @@ const NewFooter = () => {
         const elements = [
             { ref: leftColumnRef.current, x: '-100%', opacity: 0 },
             { ref: middleColumnRef.current, x: '100%', opacity: 0 },
-            { ref: bottomRowRef.current, y: '50%', opacity: 0 } // Animation for bottom row
+            { ref: bottomRowRef.current, y: '50%', opacity: 0 } 
         ];
 
         elements.forEach(({ ref, x = 0, y = 0, opacity }) => {
@@ -74,4 +74,4 @@ const NewFooter = () => {
     );
 };
 
-export default NewFooter;
+export default Footer;
