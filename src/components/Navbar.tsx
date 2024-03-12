@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -53,8 +54,8 @@ export default function Navbar() {
 
     return (
         <header className="fixed top-0 z-50 bg-white p-4 w-full border-b">
-            <div className="max-w-6xl mx-auto flex justify-between items-center">
-                <div className="flex items-center">
+            <div className="px-10 mx-auto flex justify-between items-center">
+                <div className="flex">
                     <a
                         href="#hero"
                         className="text-black text-2xl font-bold"
@@ -66,7 +67,7 @@ export default function Navbar() {
 
                 </div>
                 {/* Desktop Menu */}
-                <nav className="hidden lg:flex justify-center flex-1 space-x-8">
+                <nav className="hidden lg:flex justify-center flex-1 space-x-6 ">
                     {navItems.map((item) => (
                         <a
                             key={item.id}
@@ -81,7 +82,7 @@ export default function Navbar() {
                 </nav>
                 {/* CTA button */}
                 <button
-                    className="hidden lg:block text-white bg-black px-4 py-2 rounded-md hover:bg-gray-500"
+                    className="hidden lg:block text-white bg-black px-4 py-2 rounded-md mx-6 hover:bg-gray-500"
                     onClick={() => handleNavLinkClick('login')}
                     ref={loginBtnRef} // Use the ref adding function here
                 >
@@ -140,4 +141,4 @@ export default function Navbar() {
             )}
         </header>
     );
-}
+}    

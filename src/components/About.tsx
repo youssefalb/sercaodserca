@@ -12,6 +12,7 @@ const About = () => {
                 <p className="mb-4 text-center md:text-left">
                     The fund's mission is to provide financial and non-financial assistance to Ukraine; including support for families and individuals in difficult living situations...
                 </p>
+
                 <div className="space-y-2 mb-6 text-center md:text-left">
                     <p className="flex justify-center md:justify-start items-center text-purple font-bold">
                         <EmailIcon className="w-6 h-6 mr-2" />
