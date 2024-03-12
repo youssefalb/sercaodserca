@@ -7,6 +7,7 @@ import HeroSection from './components/Hero';
 import About from './components/About';
 import Partners from './components/Partners';
 import SupportCard from './components/SupportCrad';
+import Footer from './components/Footer';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         buttonText="Зробити внесок"
         rightImageUrl={rightSideImg}
       />
+      <Footer />
     </div>
   );
 }

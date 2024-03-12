@@ -7,6 +7,7 @@ module.exports = {
         'yellow': '#FED67A', 
         'purple': '#766DF1',
         'black': '#222222', 
+        'blue': '#4C4ECD'
       },
        width: {
         '3/10': '30%',
