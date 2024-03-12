@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { User } from 'firebase/auth';
 import { useAuth } from '../AuthContext'; // Adjust the path as necessary
+import { useNavigate } from 'react-router-dom';
 
 
 import logo from '../assets/images/logo.svg';
@@ -12,7 +13,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Navbar() {
     const { login, signup, logout, currentUser } = useAuth(); // Destructure the needed functions and state
-    
+    const navigate = useNavigate();
+
     const navLinksRef = useRef<(HTMLAnchorElement | null)[]>([]);
     navLinksRef.current = [];
 
@@ -36,20 +38,11 @@ export default function Navbar() {
 
     const handleNavLinkClick = async (id: string) => {
         if (id === 'login') {
-            try {
-                await login('user@example.com', 'password'); // Placeholder credentials
-                // Handle UI changes or redirects after successful login
-            } catch (error) {
-                console.error('Error signing in:', error);
-            }
+            navigate('/login');
         } else if (id === 'register') {
-            try {
-                // await logout();
-                await signup('user@example.com', 'password'); // Placeholder credentials
-            } catch (error) {
-                console.error('Error logging out:', error);
-            }
+            navigate('/register');
         } else {
+            navigate('/');
             setActiveSection(id);
             setIsMenuOpen(false);
         }
@@ -106,39 +99,37 @@ export default function Navbar() {
                 </nav>
                 {/* CTA button */}
                 {/* Conditional CTA buttons */}
-            {currentUser ? (
-                <button
-                    className="hidden lg:block text-white bg-black px-4 py-2 rounded-md mx-6 hover:bg-gray-500"
-                    onClick={async () => {
-                        try {
-                            await logout();
-                        } catch (error) {
-                            console.error('Error logging out: ', error);
-                        }
-                    }}
-                >
-                    Logout
-                </button>
-            ) : (
-                <>
+                {currentUser ? (
                     <button
                         className="hidden lg:block text-white bg-black px-4 py-2 rounded-md mx-6 hover:bg-gray-500"
-                        onClick={() => handleNavLinkClick('login')}
-                        ref={loginBtnRef}
+                        onClick={async () => {
+                            try {
+                                await logout();
+                            } catch (error) {
+                                console.error('Error logging out: ', error);
+                            }
+                        }}
                     >
-                        Login
+                        Logout
                     </button>
-                    <button
-                        className="hidden lg:block text-white bg-black px-4 py-2 rounded-md ml-7 hover:bg-gray-500"
-                        onClick={() => handleNavLinkClick('register')}
-                        ref={registerBtnRef}
-                    >
-                        Register
-                    </button>
-                </>
-            )}
-
-
+                ) : (
+                    <>
+                        <button
+                            className="hidden lg:block text-white bg-black px-4 py-2 rounded-md mx-6 hover:bg-gray-500"
+                            onClick={() => handleNavLinkClick('login')}
+                            ref={loginBtnRef}
+                        >
+                            Login
+                        </button>
+                        <button
+                            className="hidden lg:block text-white bg-black px-4 py-2 rounded-md ml-7 hover:bg-gray-500"
+                            onClick={() => handleNavLinkClick('register')}
+                            ref={registerBtnRef}
+                        >
+                            Register
+                        </button>
+                    </>
+                )}
 
                 <div className="flex lg:hidden">
                     <button
