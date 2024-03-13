@@ -10,98 +10,110 @@ import AuctionCard from './AuctionCard';
 const AuctionsSection = () => {
     const dummyData = [
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 1,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 1",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 2,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 2",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 3,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 3",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 4,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 4",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
-
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 5,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 5",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 6,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 6",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 7,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 7",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 8,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 8",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 9,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 9",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 10,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 10",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 11,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 11",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 12,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 12",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 13,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 13",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 14,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 14",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
         {
-            image: "https://via.placeholder.com/150", // Replace with your image path
+            id: 15,
+            image: "https://via.placeholder.com/150",
             title: "Item Name 15",
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
-
-
     ];
 
     return (

@@ -11,8 +11,9 @@ import Partners from './components/Partners';
 import SupportCard from './components/SupportCrad';
 import Footer from './components/Footer';
 import { AuthProvider } from './AuthContext'; // Import AuthProvider
-import AuctionsSection from './components/AuctionsSection';import LoginPage from './components/LoginPage';
+import AuctionsSection from './components/AuctionsSection'; import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
+import AuctionDetail from './components/AuctionDetail';
 
 export default function App() {
   return (
@@ -39,11 +40,12 @@ export default function App() {
                   rightImageUrl={rightSideImgTwo}
                 />
                 <AuctionsSection />
-        <Footer />
+                <Footer />
               </>
             } />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/auction/:id" element={<AuctionDetail />} />
           </Routes>
         </div>
       </BrowserRouter>
