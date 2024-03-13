@@ -39,19 +39,19 @@ const AuctionDetail: React.FC = () => {
                 </div>
                 <div className="p-8">
                     <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{auctionItem.title}</div>
-                    <div className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{auctionItem.description}</div>
+                    <div className="block mt-4 text-lg leading-tight font-medium text-black hover:underline">{auctionItem.description}</div>
                     <div className="mt-2 text-gray-500">
                         <FontAwesomeIcon icon={faGavel} className="mr-2" />Current Bid: {auctionItem.currentBid} PLN
                     </div>
-                    <div className="mt-2">
+                    <div className="mt-4">
                         <FontAwesomeIcon icon={faClock} className="text-gray-500 mr-2" />
                         Time Remaining: {auctionItem.timeRemaining}
                     </div>
-                    <div className="mt-2">
+                    <div className="mt-4">
                         <FontAwesomeIcon icon={faGavel} className="text-gray-500 mr-2" />
                         {auctionItem.auctionEnd}
                     </div>
-                    <div className="mt-4">
+                    <div className="mt-8">
                         <span className="text-teal-600 text-md font-semibold">0 PLN</span>
                         <button className="mx-6 bg-purple hover:bg-blue text-white font-bold py-2 px-4 rounded">
                             Place a Bid
