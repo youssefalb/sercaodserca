@@ -4,6 +4,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CustomSlider from './CustomSlider';
 import AuctionCard from './AuctionCard';
+import { useAuth } from '../AuthContext'; 
+import { useNavigate } from 'react-router-dom'; 
+import { isAdminUser } from '../utils/AuthUtils';
+
 
 
 // Auctions Section
@@ -37,88 +41,24 @@ const AuctionsSection = () => {
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
-        {
-            id: 5,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 5",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
-        {
-            id: 6,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 6",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
-        {
-            id: 7,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 7",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
-        {
-            id: 8,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 8",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
-        {
-            id: 9,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 9",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
-        {
-            id: 10,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 10",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
-        {
-            id: 11,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 11",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
-        {
-            id: 12,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 12",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
-        {
-            id: 13,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 13",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
-        {
-            id: 14,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 14",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
-        {
-            id: 15,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 15",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
     ];
+
+    const { currentUser } = useAuth(); // Use your authentication context
+    const navigate = useNavigate(); // For navigation to the add auction page
 
     return (
         <section className="p-6">
-            <h2 className="text-center text-2xl font-bold mb-6">Auctions</h2>
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold">Auctions</h2>
+                {isAdminUser(currentUser) && (
+                    <button
+                        className="bg-purple hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => navigate('/add-auction')} // Assuming '/add-auction' is your route to add auctions
+                    >
+                        Add Auction
+                    </button>
+                )}
+            </div>
             <CustomSlider>
                 {dummyData.map((item, index) => (
                     <AuctionCard key={index} {...item} />
