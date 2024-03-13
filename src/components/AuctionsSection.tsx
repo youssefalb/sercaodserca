@@ -41,7 +41,7 @@ const AuctionsSection = () => {
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
-        
+
     ];
 
     const { currentUser } = useAuth(); // Use your authentication context
@@ -51,14 +51,14 @@ const AuctionsSection = () => {
         <section className="p-6">
             <div className="flex flex-col sm:flex-row sm:justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold sm:mb-0 mb-4 text-center sm:text-center flex-1">Auctions</h2>
-                {/* {isAdminUser(currentUser) && ( */}
-                <button
-                    className="bg-purple hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => navigate('/add-auction')} // Assuming '/add-auction' is your route to add auctions
-                >
-                    Add Auction
-                </button>
-                {/* )} */}
+                {isAdminUser(currentUser) && (
+                    <button
+                        className="bg-purple hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => navigate('/add-auction')} // Assuming '/add-auction' is your route to add auctions
+                    >
+                        Add Auction
+                    </button>
+                )}
             </div>
 
 

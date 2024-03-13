@@ -25,7 +25,7 @@ const BlogsSection = () => {
             description: "Brief description for Blog Post 2",
             datePublished: "11/10/2021",
         },
-        
+
         // ... other blog posts
     ];
 
