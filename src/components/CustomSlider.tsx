@@ -26,7 +26,7 @@ const CustomSlider: React.FC<CustomSliderProps> = ({ children }) => {
         infinite: false,
         speed: 500,
         slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToScroll: 1,
         beforeChange: (current: number, next: number) => setCurrentSlide(next),
         appendDots: (dots: React.ReactNode[]) => (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

@@ -4,8 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CustomSlider from './CustomSlider';
 import AuctionCard from './AuctionCard';
-import { useAuth } from '../AuthContext'; 
-import { useNavigate } from 'react-router-dom'; 
+import { useAuth } from '../AuthContext';
+import { useNavigate } from 'react-router-dom';
 import { isAdminUser } from '../utils/AuthUtils';
 
 
@@ -41,6 +41,7 @@ const AuctionsSection = () => {
             startingPrice: "10 USD",
             auctionEnd: "10/15/2021",
         },
+        
     ];
 
     const { currentUser } = useAuth(); // Use your authentication context
@@ -48,17 +49,20 @@ const AuctionsSection = () => {
 
     return (
         <section className="p-6">
-            <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Auctions</h2>
-                {isAdminUser(currentUser) && (
-                    <button
-                        className="bg-purple hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => navigate('/add-auction')} // Assuming '/add-auction' is your route to add auctions
-                    >
-                        Add Auction
-                    </button>
-                )}
+            <div className="flex flex-col sm:flex-row sm:justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold sm:mb-0 mb-4 text-center sm:text-center flex-1">Auctions</h2>
+                {/* {isAdminUser(currentUser) && ( */}
+                <button
+                    className="bg-purple hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onClick={() => navigate('/add-auction')} // Assuming '/add-auction' is your route to add auctions
+                >
+                    Add Auction
+                </button>
+                {/* )} */}
             </div>
+
+
+
             <CustomSlider>
                 {dummyData.map((item, index) => (
                     <AuctionCard key={index} {...item} />
