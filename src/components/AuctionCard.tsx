@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface AuctionCardProps {
-    id: Number;
+    id: string;
     image: string;
     title: string;
     startingPrice: string;

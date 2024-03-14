@@ -1,53 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs } from "firebase/firestore";
+import { db } from '../firebase-config.js'; // Your Firebase configuration file
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CustomSlider from './CustomSlider';
-import BlogCard from './BlogCard'; // Make sure to create this component
+import BlogCard from './BlogCard'; // Your BlogCard component
 import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { isAdminUser } from '../utils/AuthUtils';
 
-// Blogs Section
-const BlogsSection = () => {
-    const dummyData = [
-        {
-            id: 1,
-            image: "https://via.placeholder.com/150",
-            title: "Blog Post Title 1",
-            description: "Brief description for Blog Post 1",
-            datePublished: "10/15/2021",
-        },
-        {
-            id: 2,
-            image: "https://via.placeholder.com/150",
-            title: "Blog Post Title 2",
-            description: "Brief description for Blog Post 2",
-            datePublished: "11/10/2021",
-        },
+// Define the structure of your blog post data
+interface BlogPost {
+    id: string;
+    image: string;
+    title: string;
+    description: string;
+    datePublished: string;
+}
 
-        // ... other blog posts
-    ];
+const BlogsSection: React.FC = () => {
+    const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+    const { currentUser } = useAuth();
+    const navigate = useNavigate();
 
-    const { currentUser } = useAuth(); // Use your authentication context
-    const navigate = useNavigate(); // For navigation
+    useEffect(() => {
+        const fetchBlogPosts = async () => {
+            const querySnapshot = await getDocs(collection(db, "blogPosts"));
+            const posts: BlogPost[] = querySnapshot.docs.map((doc) => ({
+                ...doc.data() as BlogPost,
+                id: doc.id,
+            }));
+            setBlogPosts(posts);
+        };
+
+        fetchBlogPosts();
+    }, []);
 
     return (
         <section className="p-6">
             <div className="flex flex-col sm:flex-row sm:justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold sm:mb-0 mb-4 text-center sm:text-center flex-1">Blogs</h2>
-                {/* {isAdminUser(currentUser) && ( */}
-                <button
-                    className="bg-purple hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => navigate('/add-blog')} // Change to your route to add blogs
-                >
-                    Add Blog Post
-                </button>
-                {/* )} */}
+                {isAdminUser(currentUser) && (
+                    <button
+                        className="bg-purple hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => navigate('/add-blog')}
+                    >
+                        Add Blog Post
+                    </button>
+                )}
             </div>
             <CustomSlider>
-                {dummyData.map((item) => (
-                    <BlogCard key={item.id} {...item} />
+                {blogPosts.map((post) => (
+                    <BlogCard key={post.id} {...post} />
                 ))}
             </CustomSlider>
         </section>

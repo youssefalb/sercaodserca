@@ -1,51 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs } from "firebase/firestore";
+import { db } from '../firebase-config'; // Your Firebase configuration file
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CustomSlider from './CustomSlider';
-import AuctionCard from './AuctionCard';
+import AuctionCard from './AuctionCard'; // Your AuctionCard component
 import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { isAdminUser } from '../utils/AuthUtils';
 
+// Define the structure of your auction data
+interface AuctionItem {
+    id: string;
+    image: string;
+    title: string;
+    startingPrice: string;
+    auctionEnd: string;
+}
 
+const AuctionsSection: React.FC = () => {
+    const [auctionItems, setAuctionItems] = useState<AuctionItem[]>([]);
+    const { currentUser } = useAuth();
+    const navigate = useNavigate();
 
-// Auctions Section
-const AuctionsSection = () => {
-    const dummyData = [
-        {
-            id: 1,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 1",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
-        {
-            id: 2,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 2",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
-        {
-            id: 3,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 3",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
-        {
-            id: 4,
-            image: "https://via.placeholder.com/150",
-            title: "Item Name 4",
-            startingPrice: "10 USD",
-            auctionEnd: "10/15/2021",
-        },
+    useEffect(() => {
+        const fetchAuctionItems = async () => {
+            const querySnapshot = await getDocs(collection(db, "auctions"));
+            const items: AuctionItem[] = querySnapshot.docs.map((doc) => ({
+                ...doc.data() as AuctionItem,
+                id: doc.id,
+            }));
+            setAuctionItems(items);
+        };
 
-    ];
-
-    const { currentUser } = useAuth(); // Use your authentication context
-    const navigate = useNavigate(); // For navigation to the add auction page
+        fetchAuctionItems();
+    }, []);
 
     return (
         <section className="p-6">
@@ -54,23 +44,19 @@ const AuctionsSection = () => {
                 {isAdminUser(currentUser) && (
                     <button
                         className="bg-purple hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => navigate('/add-auction')} // Assuming '/add-auction' is your route to add auctions
+                        onClick={() => navigate('/add-auction')}
                     >
-                        Add Auction
+                        Add Auction Item
                     </button>
                 )}
             </div>
-
-
-
             <CustomSlider>
-                {dummyData.map((item, index) => (
-                    <AuctionCard key={index} {...item} />
+                {auctionItems.map((item) => (
+                    <AuctionCard key={item.id} {...item} />
                 ))}
             </CustomSlider>
         </section>
     );
 };
-
 
 export default AuctionsSection;
