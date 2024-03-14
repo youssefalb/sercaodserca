@@ -18,7 +18,7 @@ import AddOrEditAuctionItem from './AddOrEditAuctionItem';
 import BlogsSection from './components/BlogsSection';
 import AuctionDetail from './components/AuctionDetail';
 import BlogDetail from './components/BlogDetail';
-import AddBlogItem from './AddBlogItem';
+import AddOrEditBlog from './AddOrEditBlog';
 
 export default function App() {
   return (
@@ -38,13 +38,13 @@ export default function App() {
                   buttonText="Make a contribution"
                   rightImageUrl={rightSideImg}
                 />
+                <AuctionsSection />
                 <SupportCard
                   title="Support Refugees"
                   description="Join the effort to support refugees, providing them with essential aid and assistance in these challenging times"
                   buttonText="Make a Contribution"
                   rightImageUrl={rightSideImgTwo}
                 />
-                <AuctionsSection />
                 <BlogsSection />
                 <Footer />
               </>
@@ -56,7 +56,9 @@ export default function App() {
             <Route path="/edit-auction/:auctionId" element={<AddOrEditAuctionItem />} />
           
             <Route path="/blog/:id" element={<BlogDetail />} />
-            <Route path="/add-blog" element={<AddBlogItem />} />
+            <Route path="/add-blog-post" element={<AddOrEditBlog />} />
+            <Route path="/edit-blog-post/:postId" element={<AddOrEditBlog />} />
+                    
           </Routes>
         </div>
       </BrowserRouter>

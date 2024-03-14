@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase-config.js'; // Your Firebase configuration file
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'; 
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -24,18 +24,23 @@ const BlogsSection: React.FC = () => {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchBlogPosts = async () => {
-            const querySnapshot = await getDocs(collection(db, "blogPosts"));
-            const posts: BlogPost[] = querySnapshot.docs.map((doc) => ({
-                ...doc.data() as BlogPost,
-                id: doc.id,
-            }));
-            setBlogPosts(posts);
-        };
+    const fetchBlogPosts = async () => {
+        const querySnapshot = await getDocs(collection(db, "blogPosts"));
+        const posts: BlogPost[] = querySnapshot.docs.map((doc) => ({
+            ...doc.data() as BlogPost,
+            id: doc.id,
+        }));
+        setBlogPosts(posts);
+    };
 
+    useEffect(() => {
         fetchBlogPosts();
     }, []);
+
+    const handleDeleteItem = async (itemId: string) => {
+        await deleteDoc(doc(db, "blogPosts", itemId));
+        fetchBlogPosts(); 
+    };
 
     return (
         <section className="p-6">
@@ -44,7 +49,7 @@ const BlogsSection: React.FC = () => {
                 {isAdminUser(currentUser) && (
                     <button
                         className="bg-purple hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => navigate('/add-blog')}
+                        onClick={() => navigate('/add-blog-post')}
                     >
                         Add Blog Post
                     </button>
@@ -52,7 +57,7 @@ const BlogsSection: React.FC = () => {
             </div>
             <CustomSlider>
                 {blogPosts.map((post) => (
-                    <BlogCard key={post.id} {...post} />
+                    <BlogCard key={post.id} {...post} onDelete={() => handleDeleteItem(post.id)}/>
                 ))}
             </CustomSlider>
         </section>

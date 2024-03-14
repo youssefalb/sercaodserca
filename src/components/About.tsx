@@ -4,7 +4,7 @@ import { ReactComponent as PhoneIcon } from '../assets/icons/phone.svg';
 
 const About = () => {
     return (
-        <section id="about" className="bg-white pt-5 pb-5 px-8 sm:px-6 lg:px-8 relative shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row-reverse">
+        <section id="about" className="max-w-6xl mx-auto bg-white pt-28 pb-28 px-8 sm:px-6 lg:px-8 relative  overflow-hidden flex flex-col md:flex-row-reverse">
 
             {/* Text Section */}
             <div className="w-full md:w-3/4 p-8">
