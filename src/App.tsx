@@ -18,6 +18,7 @@ import AddAuctionItem from './AddAuctionItem';
 import BlogsSection from './components/BlogsSection';
 import AuctionDetail from './components/AuctionDetail';
 import BlogDetail from './components/BlogDetail';
+import AddBlogItem from './AddBlogItem';
 
 export default function App() {
   return (
@@ -54,6 +55,7 @@ export default function App() {
             <Route path="/blog/:id" element={<BlogDetail />} />
 
             <Route path="/add-auction" element={<AddAuctionItem />} />
+            <Route path="/add-blog" element={<AddBlogItem />} />
           </Routes>
         </div>
       </BrowserRouter>

@@ -40,7 +40,7 @@ const BlogDetail: React.FC = () => {
                 </div>
                 <div className="p-8">
                     <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{blogPost.title}</div>
-                    <div className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{blogPost.description}</div>
+                    <div className="block mt-1 text-lg leading-tight font-medium text-black">{blogPost.description}</div>
                     <div className="mt-2">
                         <FontAwesomeIcon icon={faCalendarAlt} className="text-gray-500 mr-2" />
                         {blogPost.publishDate}
