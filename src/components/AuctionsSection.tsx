@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'; 
 import { db } from '../firebase-config'; // Your Firebase configuration file
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
@@ -24,18 +24,37 @@ const AuctionsSection: React.FC = () => {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchAuctionItems = async () => {
-            const querySnapshot = await getDocs(collection(db, "auctions"));
-            const items: AuctionItem[] = querySnapshot.docs.map((doc) => ({
-                ...doc.data() as AuctionItem,
-                id: doc.id,
-            }));
-            setAuctionItems(items);
-        };
+    // useEffect(() => {
+    //     const fetchAuctionItems = async () => {
+    //         const querySnapshot = await getDocs(collection(db, "auctions"));
+    //         const items: AuctionItem[] = querySnapshot.docs.map((doc) => ({
+    //             ...doc.data() as AuctionItem,
+    //             id: doc.id,
+    //         }));
+    //         setAuctionItems(items);
+    //     };
 
+    //     fetchAuctionItems();
+    // }, []);
+
+    const fetchAuctionItems = async () => {
+        const querySnapshot = await getDocs(collection(db, "auctions"));
+        const items = querySnapshot.docs.map(doc => ({
+            ...doc.data() as AuctionItem,
+            id: doc.id
+        }));
+        setAuctionItems(items);
+    };
+
+    useEffect(() => {
         fetchAuctionItems();
     }, []);
+
+
+    const handleDeleteItem = async (itemId: string) => {
+        await deleteDoc(doc(db, "auctions", itemId));
+        fetchAuctionItems(); // Re-fetch the auction items after one is deleted
+    };
 
     return (
         <section className="p-6">
@@ -52,7 +71,7 @@ const AuctionsSection: React.FC = () => {
             </div>
             <CustomSlider>
                 {auctionItems.map((item) => (
-                    <AuctionCard key={item.id} {...item} />
+                    <AuctionCard key={item.id} {...item} onDelete={() => handleDeleteItem(item.id)} />
                 ))}
             </CustomSlider>
         </section>
