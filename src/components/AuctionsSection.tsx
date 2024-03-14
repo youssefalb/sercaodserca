@@ -58,9 +58,9 @@ const AuctionsSection: React.FC = () => {
     };
 
     return (
-        <section className="p-6">
-            <div className="flex flex-col sm:flex-row sm:justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold sm:mb-0 mb-4 text-center sm:text-center flex-1">Auctions</h2>
+        <section className="p-6 bg-gray-100 ">
+            <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:justify-between items-center mb-6 p-10">
+                <h2 className="text-3xl font-bold sm:mb-0 mb-4 text-center sm:text-center flex-1">Auctions</h2>
                 {isAdminUser(currentUser) && (
                     <button
                         className="bg-purple hover:bg-purple text-white font-bold py-2 px-4 rounded"

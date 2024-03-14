@@ -30,19 +30,19 @@ const AuctionCard: React.FC<AuctionCardProps> = ({ id, image, title, startingPri
     };
 
     return (
-        <div className="border border-gray-300 rounded-lg p-4 flex flex-col items-center">
+        <div className="border border-gray-300 bg-white rounded-2xl p-4 flex flex-col items-center max-w-sm">
             <div className="h-48 w-60 mb-4">
                 <img src={image} alt="Auction Item" className="object-cover h-full w-full" />
             </div>
             <h5>{title}</h5>
             <p>Starting Price: ${startingPrice}</p>
             <p>Ends: {auctionEnd}</p>
-            <Link to={`/auction/${id}`} className="text-white bg-black px-4 py-2 rounded-md m-6 hover:bg-gray-500">
+            <Link to={`/auction/${id}`} className="text-white bg-purple px-4 py-2 rounded-md m-6 hover:bg-gray-500">
                 Learn More
             </Link>
             {isAdminUser(currentUser) && (
-                <div className="flex justify-around w-full">
-                    <button onClick={handleEdit} className="text-white bg-purple px-3 py-2 rounded-md hover:bg-blue-700">Edit</button>
+                <div className="">
+                    <button onClick={handleEdit} className="text-white bg-black px-3 py-2 rounded-md hover:bg-blue-700">Edit</button>
                     <button onClick={handleDelete} className="text-white bg-red-500 px-3 py-2 rounded-md hover:bg-red-700">Delete</button>
                 </div>
             )}
