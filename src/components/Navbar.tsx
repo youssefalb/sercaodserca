@@ -115,14 +115,14 @@ export default function Navbar() {
                 ) : (
                     <>
                         <button
-                            className="hidden lg:block text-white bg-black px-4 py-2 rounded-md mx-6 hover:bg-gray-500"
+                            className="hidden lg:block text-white bg-purple border-purple border-2 px-4 py-2 rounded-md hover:bg-purple"
                             onClick={() => handleNavLinkClick('login')}
                             ref={loginBtnRef}
                         >
                             Login
                         </button>
                         <button
-                            className="hidden lg:block text-white bg-black px-4 py-2 rounded-md ml-7 hover:bg-gray-500"
+                            className="hidden lg:block text-purple border-purple border-2 px-4 py-2 rounded-md ml-2 hover:bg-purple hover:text-white"
                             onClick={() => handleNavLinkClick('register')}
                             ref={registerBtnRef}
                         >
