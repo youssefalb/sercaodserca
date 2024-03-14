@@ -14,7 +14,7 @@ import { AuthProvider } from './AuthContext'; // Import AuthProvider
 import AuctionsSection from './components/AuctionsSection';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
-import AddAuctionItem from './AddAuctionItem';
+import AddOrEditAuctionItem from './AddOrEditAuctionItem';
 import BlogsSection from './components/BlogsSection';
 import AuctionDetail from './components/AuctionDetail';
 import BlogDetail from './components/BlogDetail';
@@ -52,9 +52,10 @@ export default function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/auction/:id" element={<AuctionDetail />} />
+            <Route path="/add-auction" element={<AddOrEditAuctionItem />} />
+            <Route path="/edit-auction/:auctionId" element={<AddOrEditAuctionItem />} />
+          
             <Route path="/blog/:id" element={<BlogDetail />} />
-
-            <Route path="/add-auction" element={<AddAuctionItem />} />
             <Route path="/add-blog" element={<AddBlogItem />} />
           </Routes>
         </div>

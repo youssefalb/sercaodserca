@@ -15,8 +15,8 @@ interface AuctionItem {
     id: string;
     image: string;
     title: string;
-    startingPrice: string;
-    auctionEnd: string;
+    startingPrice: number; // Updated from string to number
+    auctionEnd: Date; // Updated from string to Date
 }
 
 const AuctionsSection: React.FC = () => {
@@ -41,7 +41,6 @@ const AuctionsSection: React.FC = () => {
         const querySnapshot = await getDocs(collection(db, "auctions"));
         const items = querySnapshot.docs.map(doc => ({
             ...doc.data() as AuctionItem,
-            id: doc.id
         }));
         setAuctionItems(items);
     };
@@ -62,7 +61,7 @@ const AuctionsSection: React.FC = () => {
                 <h2 className="text-2xl font-bold sm:mb-0 mb-4 text-center sm:text-center flex-1">Auctions</h2>
                 {isAdminUser(currentUser) && (
                     <button
-                        className="bg-purple hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        className="bg-purple hover:bg-purple text-white font-bold py-2 px-4 rounded"
                         onClick={() => navigate('/add-auction')}
                     >
                         Add Auction Item

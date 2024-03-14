@@ -9,8 +9,8 @@ interface AuctionCardProps {
     id: string;
     image: string;
     title: string;
-    startingPrice: string;
-    auctionEnd: string;
+    startingPrice: number;
+    auctionEnd: Date;
     onDelete: () => void; // Add this line
 }
 
@@ -29,6 +29,9 @@ const AuctionCard: React.FC<AuctionCardProps> = ({ id, image, title, startingPri
         navigate(`/edit-auction/${id}`); // Assuming you have this route set up for editing
     };
 
+    const formattedAuctionEnd = auctionEnd ? auctionEnd.toLocaleDateString('en-US') : 'Loading date...';
+
+
     return (
         <div className="border border-gray-300 rounded-lg p-4 flex flex-col items-center">
             <div className="h-48 w-60 mb-4">
@@ -36,13 +39,13 @@ const AuctionCard: React.FC<AuctionCardProps> = ({ id, image, title, startingPri
             </div>
             <h5>{title}</h5>
             <p>Starting Price: ${startingPrice}</p>
-            <p>Ends: {auctionEnd}</p>
+            <p>Ends: {formattedAuctionEnd}</p>
             <Link to={`/auction/${id}`} className="text-white bg-black px-4 py-2 rounded-md m-6 hover:bg-gray-500">
                 Learn More
             </Link>
             {isAdminUser(currentUser) && (
                 <div className="flex justify-around w-full">
-                    <button onClick={handleEdit} className="text-white bg-blue-500 px-3 py-2 rounded-md hover:bg-blue-700">Edit</button>
+                    <button onClick={handleEdit} className="text-white bg-purple px-3 py-2 rounded-md hover:bg-blue-700">Edit</button>
                     <button onClick={handleDelete} className="text-white bg-red-500 px-3 py-2 rounded-md hover:bg-red-700">Delete</button>
                 </div>
             )}
