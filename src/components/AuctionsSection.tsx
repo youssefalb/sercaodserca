@@ -15,8 +15,8 @@ interface AuctionItem {
     id: string;
     image: string;
     title: string;
-    startingPrice: number; // Updated from string to number
-    auctionEnd: Date; // Updated from string to Date
+    startingPrice: string;
+    auctionEnd: string;
 }
 
 const AuctionsSection: React.FC = () => {
@@ -36,11 +36,13 @@ const AuctionsSection: React.FC = () => {
 
     //     fetchAuctionItems();
     // }, []);
+    
 
     const fetchAuctionItems = async () => {
         const querySnapshot = await getDocs(collection(db, "auctions"));
-        const items = querySnapshot.docs.map(doc => ({
+        const items: AuctionItem[] = querySnapshot.docs.map(doc => ({
             ...doc.data() as AuctionItem,
+            id: doc.id
         }));
         setAuctionItems(items);
     };
