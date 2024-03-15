@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'; 
+import { collection, getDocs, deleteDoc, doc, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase-config'; // Your Firebase configuration file
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
@@ -15,8 +15,8 @@ interface AuctionItem {
     id: string;
     image: string;
     title: string;
-    startingPrice: string;
-    auctionEnd: string;
+    startPrice: string;
+    endOfAuction: Timestamp;
 }
 
 const AuctionsSection: React.FC = () => {
@@ -36,7 +36,7 @@ const AuctionsSection: React.FC = () => {
 
     //     fetchAuctionItems();
     // }, []);
-    
+
 
     const fetchAuctionItems = async () => {
         const querySnapshot = await getDocs(collection(db, "auctions"));
