@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { doc, setDoc, getDoc, collection } from "firebase/firestore"; 
-import { db } from './firebase-config'; // Path to your Firebase config
+import { doc, setDoc, getDoc, collection } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db, storage } from './firebase-config'; // Path to your Firebase config
 import { isAdminUser } from './utils/AuthUtils';
-import { useAuth } from './AuthContext'; 
+import { useAuth } from './AuthContext';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const AddOrEditAuctionItem: React.FC = () => {
@@ -11,11 +12,29 @@ const AddOrEditAuctionItem: React.FC = () => {
     const { currentUser } = useAuth();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState<File | null>(null);
     const [startPrice, setStartPrice] = useState('');
     const [buyNowPrice, setBuyNowPrice] = useState('');
     const [endOfAuction, setEndOfAuction] = useState('');
+
+
     const isEditMode = auctionId !== undefined;
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setImage(e.target.files[0]);
+        }
+    };
+
+    const uploadImage = async (): Promise<string> => {
+        if (image) {
+            const imageRef = ref(storage, `blogImages/${image.name}`);
+            await uploadBytes(imageRef, image);
+            const url = await getDownloadURL(imageRef);
+            return url;
+        }
+        return ''; // Return empty string if no image was uploaded
+    };
+
 
     useEffect(() => {
         const fetchAuctionItem = async () => {
@@ -29,7 +48,7 @@ const AddOrEditAuctionItem: React.FC = () => {
                 setImage(data.image);
                 setStartPrice(data.startPrice);
                 setBuyNowPrice(data.buyNowPrice);
-    
+
                 // Check if endOfAuction exists and is a Firestore Timestamp
                 if (data.endOfAuction && data.endOfAuction.toDate) {
                     setEndOfAuction(data.endOfAuction.toDate().toISOString().substring(0, 16)); // Properly convert Firestore Timestamp
@@ -41,26 +60,27 @@ const AddOrEditAuctionItem: React.FC = () => {
                 console.log("No such document!");
             }
         };
-    
+
         fetchAuctionItem();
     }, [auctionId, isEditMode]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!isAdminUser(currentUser)) {
-            alert('Only admins can modify auction items.');
-            return;
-        }
+        // if (!isAdminUser(currentUser)) {
+        //     alert('Only admins can modify auction items.');
+        //     return;
+        // }
+        const imageUrl = await uploadImage(); // Upload image and get URL
 
         const auctionData = {
             title,
             description,
-            image,
+            image: imageUrl || imageUrl,
             startPrice: parseFloat(startPrice),
             buyNowPrice: parseFloat(buyNowPrice),
             endOfAuction: new Date(endOfAuction),
-            currentHighestBid: parseFloat(startPrice), // This might need adjustment based on your app logic
-            currentHighestBidder: "", // Consider retaining existing values for edits
+            currentHighestBid: parseFloat(startPrice),
+            currentHighestBidder: "",
         };
 
         if (isEditMode) {
@@ -72,7 +92,7 @@ const AddOrEditAuctionItem: React.FC = () => {
             alert('Auction item added successfully!');
         }
 
-        navigate('/'); 
+        navigate('/');
     };
 
     return (
@@ -80,71 +100,68 @@ const AddOrEditAuctionItem: React.FC = () => {
             <h2 className="text-2xl font-bold mb-6 text-center">{isEditMode ? 'Edit Auction Item' : 'Add Auction Item'}</h2>
             <div className="mb-4">
                 <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">Title:</label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     id="title"
-                    value={title} 
-                    onChange={e => setTitle(e.target.value)} 
-                    placeholder="Enter Title" 
-                    required 
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
+                    placeholder="Enter Title"
+                    required
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
             </div>
             <div className="mb-4">
                 <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">Description:</label>
-                <textarea 
+                <textarea
                     id="description"
-                    value={description} 
-                    onChange={e => setDescription(e.target.value)} 
-                    placeholder="Enter Description" 
-                    required 
+                    value={description}
+                    onChange={e => setDescription(e.target.value)}
+                    placeholder="Enter Description"
+                    required
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 ></textarea>
             </div>
             <div className="mb-4">
                 <label htmlFor="image" className="block text-gray-700 text-sm font-bold mb-2">Image URL:</label>
-                <input 
-                    type="text" 
+                <input
+                    type="file"
                     id="image"
-                    value={image} 
-                    onChange={e => setImage(e.target.value)} 
-                    placeholder="Enter Image URL" 
-                    required 
+                    onChange={handleImageChange}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
             </div>
             <div className="mb-4">
                 <label htmlFor="startPrice" className="block text-gray-700 text-sm font-bold mb-2">Starting Price ($):</label>
-                <input 
-                    type="number" 
+                <input
+                    type="number"
                     id="startPrice"
-                    value={startPrice} 
-                    onChange={e => setStartPrice(e.target.value)} 
-                    placeholder="Enter Starting Price" 
-                    required 
+                    value={startPrice}
+                    onChange={e => setStartPrice(e.target.value)}
+                    placeholder="Enter Starting Price"
+                    required
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
             </div>
             <div className="mb-4">
                 <label htmlFor="buyNowPrice" className="block text-gray-700 text-sm font-bold mb-2">Buy Now Price ($):</label>
-                <input 
-                    type="number" 
+                <input
+                    type="number"
                     id="buyNowPrice"
-                    value={buyNowPrice} 
-                    onChange={e => setBuyNowPrice(e.target.value)} 
-                    placeholder="Enter Buy Now Price" 
-                    required 
+                    value={buyNowPrice}
+                    onChange={e => setBuyNowPrice(e.target.value)}
+                    placeholder="Enter Buy Now Price"
+                    required
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
             </div>
             <div className="mb-6">
                 <label htmlFor="endOfAuction" className="block text-gray-700 text-sm font-bold mb-2">End of Auction:</label>
-                <input 
-                    type="datetime-local" 
+                <input
+                    type="datetime-local"
                     id="endOfAuction"
-                    value={endOfAuction} 
-                    onChange={e => setEndOfAuction(e.target.value)} 
-                    required 
+                    value={endOfAuction}
+                    onChange={e => setEndOfAuction(e.target.value)}
+                    required
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
             </div>
@@ -153,7 +170,7 @@ const AddOrEditAuctionItem: React.FC = () => {
             </button>
         </form>
     );
-    
+
 };
 
 export default AddOrEditAuctionItem;

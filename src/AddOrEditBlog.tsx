@@ -1,18 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { doc, setDoc, getDoc, collection } from "firebase/firestore";
-import { db } from './firebase-config'; // Path to your Firebase config
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db, storage } from './firebase-config'; // Path to your Firebase config
 import { useAuth } from './AuthContext';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const AddBlogPost: React.FC = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState<File | null>(null);
     const [publishDate, setPublishDate] = useState('');
     const { currentUser } = useAuth();
     const { postId } = useParams<{ postId: string }>();
     const navigate = useNavigate();
 
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setImage(e.target.files[0]);
+        }
+    };
+
+    const uploadImage = async (): Promise<string> => {
+        if (image) {
+            const imageRef = ref(storage, `blogImages/${image.name}`);
+            await uploadBytes(imageRef, image);
+            const url = await getDownloadURL(imageRef);
+            return url;
+        }
+        return ''; // Return empty string if no image was uploaded
+    };
     // Check if the user is editing an existing blog post
     useEffect(() => {
         const fetchPost = async () => {
@@ -44,10 +61,11 @@ const AddBlogPost: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const imageUrl = await uploadImage(); // Upload image and get URL
         const postData = {
             title,
             content,
-            image,
+            image: imageUrl || imageUrl, // Use the uploaded image URL
             publishDate: new Date(publishDate),
         };
 
@@ -100,12 +118,9 @@ const AddBlogPost: React.FC = () => {
             <div className="mb-4">
                 <label htmlFor="image" className="block text-gray-700 text-sm font-bold mb-2">Image URL:</label>
                 <input
-                    type="text"
+                    type="file"
                     id="image"
-                    value={image}
-                    onChange={e => setImage(e.target.value)}
-                    placeholder="Enter Image URL"
-                    required
+                    onChange={handleImageChange}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
             </div>
