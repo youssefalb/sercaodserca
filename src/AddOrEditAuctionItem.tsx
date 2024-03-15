@@ -12,29 +12,31 @@ const AddOrEditAuctionItem: React.FC = () => {
     const { currentUser } = useAuth();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [image, setImage] = useState<File | null>(null);
+    const [imageFile, setImageFile] = useState<File | null>(null); // To handle the file upload
+    const [imageUrl, setImageUrl] = useState('');
     const [startPrice, setStartPrice] = useState('');
     const [buyNowPrice, setBuyNowPrice] = useState('');
     const [endOfAuction, setEndOfAuction] = useState('');
 
 
     const isEditMode = auctionId !== undefined;
+
+
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setImage(e.target.files[0]);
+        if (e.target.files && e.target.files[0]) {
+            setImageFile(e.target.files[0]);
+            setImageUrl(URL.createObjectURL(e.target.files[0])); // For image preview
         }
     };
 
     const uploadImage = async (): Promise<string> => {
-        if (image) {
-            const imageRef = ref(storage, `blogImages/${image.name}`);
-            await uploadBytes(imageRef, image);
-            const url = await getDownloadURL(imageRef);
-            return url;
+        if (imageFile) {
+            const imageRef = ref(storage, `auctionImages/${imageFile.name}`);
+            await uploadBytes(imageRef, imageFile);
+            return await getDownloadURL(imageRef);
         }
-        return ''; // Return empty string if no image was uploaded
+        return imageUrl; // Use existing imageUrl if no new file was selected
     };
-
 
     useEffect(() => {
         const fetchAuctionItem = async () => {
@@ -45,7 +47,7 @@ const AddOrEditAuctionItem: React.FC = () => {
                 const data = docSnap.data();
                 setTitle(data.title);
                 setDescription(data.description);
-                setImage(data.image);
+                setImageUrl(data.image);
                 setStartPrice(data.startPrice);
                 setBuyNowPrice(data.buyNowPrice);
 

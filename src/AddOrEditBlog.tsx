@@ -8,7 +8,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 const AddBlogPost: React.FC = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [image, setImage] = useState<File | null>(null);
+    const [imageFile, setImageFile] = useState<File | null>(null); // To handle the file upload
+    const [imageUrl, setImageUrl] = useState('');
     const [publishDate, setPublishDate] = useState('');
     const { currentUser } = useAuth();
     const { postId } = useParams<{ postId: string }>();
@@ -16,19 +17,19 @@ const AddBlogPost: React.FC = () => {
 
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setImage(e.target.files[0]);
+        if (e.target.files && e.target.files[0]) {
+            setImageFile(e.target.files[0]);
+            setImageUrl(URL.createObjectURL(e.target.files[0])); // For image preview
         }
     };
 
     const uploadImage = async (): Promise<string> => {
-        if (image) {
-            const imageRef = ref(storage, `blogImages/${image.name}`);
-            await uploadBytes(imageRef, image);
-            const url = await getDownloadURL(imageRef);
-            return url;
+        if (imageFile) {
+            const imageRef = ref(storage, `blogImages/${imageFile.name}`);
+            await uploadBytes(imageRef, imageFile);
+            return await getDownloadURL(imageRef);
         }
-        return ''; // Return empty string if no image was uploaded
+        return imageUrl; // Use existing imageUrl if no new file was selected
     };
     // Check if the user is editing an existing blog post
     useEffect(() => {
@@ -40,7 +41,7 @@ const AddBlogPost: React.FC = () => {
                     const post = docSnap.data();
                     setTitle(post.title);
                     setContent(post.content);
-                    setImage(post.image);
+                    setImageUrl(post.image);
                     // Check if post.publishDate is a Firestore Timestamp object
                     if (post.publishDate && typeof post.publishDate.toDate === 'function') {
                         setPublishDate(post.publishDate.toDate().toISOString().substring(0, 10)); // Convert Firestore Timestamp to JavaScript Date then to ISO string
@@ -81,7 +82,7 @@ const AddBlogPost: React.FC = () => {
                 await setDoc(newPostRef, postData);
                 alert('Blog post added successfully!');
             }
-            navigate('/blog'); // Navigate to blog list or dashboard after submission
+            navigate('/'); // Navigate to blog list or dashboard after submission
         } catch (err) {
             console.error(err);
             alert('Failed to save blog post');
