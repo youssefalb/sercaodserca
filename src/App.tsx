@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import './App.css';
 import rightSideImg from './assets/images/army.png';
 import rightSideImgTwo from './assets/images/refugees.png';
@@ -19,6 +21,10 @@ import BlogsSection from './components/BlogsSection';
 import AuctionDetail from './components/AuctionDetail';
 import BlogDetail from './components/BlogDetail';
 import AddOrEditBlog from './AddOrEditBlog';
+import PaymentPage from './components/PaymentPage';
+
+// Load your Stripe public key
+const stripePromise = loadStripe('pk_test_51OuzPy014et4YmUMZXuPzFi7jzWRz709qgoFrFJsxaoPKz9BoMYQ881UCOP6e7KT0Xp895Lo88RzJKYLxgaJRERI00Td3l8onn');
 
 export default function App() {
   return (
@@ -54,11 +60,17 @@ export default function App() {
             <Route path="/auction/:id" element={<AuctionDetail />} />
             <Route path="/add-auction" element={<AddOrEditAuctionItem />} />
             <Route path="/edit-auction/:auctionId" element={<AddOrEditAuctionItem />} />
-          
+
             <Route path="/blog/:id" element={<BlogDetail />} />
             <Route path="/add-blog-post" element={<AddOrEditBlog />} />
             <Route path="/edit-blog-post/:postId" element={<AddOrEditBlog />} />
-                    
+
+            <Elements stripe={stripePromise}>
+              {/* Your routes or components that include the payment form */}
+              <Route path="/payment" element={<PaymentPage />} />
+            </Elements>
+
+
           </Routes>
         </div>
       </BrowserRouter>
