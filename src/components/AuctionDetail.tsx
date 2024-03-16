@@ -1,33 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock, faGavel } from '@fortawesome/free-solid-svg-icons';
+import { faClock, faGavel, faHammer, faMoneyBillWave, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
-import { Timestamp } from 'firebase/firestore';
+import { Timestamp, updateDoc } from 'firebase/firestore';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase-config';
+import { User } from 'firebase/auth';
+import { useAuth } from '../AuthContext';
 
 interface AuctionItem {
     id: string;
     image: string;
     title: string;
     currentHighestBid: number;
+    currentHighestBidderEmail?: string; // Updated to include email
+    buyNowPrice: number;
     timeRemaining: string;
-    endOfAuction: Timestamp | null; // Allow for null if the data hasn't loaded yet
+    endOfAuction: Timestamp | null;
     description: string;
 }
 
 
+
 const AuctionDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    console.log(id);
-
+    // console.log(id);
+    const { currentUser } = useAuth();
+    // console.log(currentUser?.uid);
     const [auctionItem, setAuctionItem] = useState<AuctionItem | null>(null);
     const [liveTimeRemaining, setLiveTimeRemaining] = useState<string>("");
     const [hasAuctionEnded, setHasAuctionEnded] = useState<boolean>(false);
     const [bidAmount, setBidAmount] = useState('');
-    const handleBidSubmit = (e: React.FormEvent) => {
+
+
+    const handleBidSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        console.log(`Submitting bid of ${bidAmount} PLN for auction ${id}`);
+        // Ensure there is a currentUser and a bid amount before proceeding
+        if (currentUser && bidAmount) {
+            const newBid = Number(bidAmount);
+            const currentHighestBid = auctionItem?.currentHighestBid ?? 0;
+            if (newBid > currentHighestBid && id !== undefined) {
+                const auctionRef = doc(db, "auctions", id);
+                await updateDoc(auctionRef, {
+                    currentHighestBid: newBid,
+                    currentHighestBidder: currentUser.uid, // Update the current highest bidder to the current user's UID
+                });
+                alert(`Bid of ${newBid} PLN placed successfully.`);
+                // Optionally fetch auction item again or update state directly to reflect changes
+            } else {
+                alert('Your bid must be higher than the current highest bid.');
+            }
+        }
     };
 
     useEffect(() => {
@@ -37,17 +60,21 @@ const AuctionDetail: React.FC = () => {
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    // Extract the data and convert the Timestamp to a readable format
                     const data = docSnap.data();
                     const endOfAuction = data.endOfAuction ? data.endOfAuction.toDate() : null;
+
+                    let currentHighestBidderEmail = data.currentHighestBidder;
+
 
                     setAuctionItem({
                         id: docSnap.id,
                         image: data.image,
                         title: data.title,
                         currentHighestBid: data.currentHighestBid,
+                        currentHighestBidderEmail,
                         timeRemaining: "",
-                        endOfAuction: data.endOfAuction ? data.endOfAuction : null, // Handle null
+                        buyNowPrice: data.buyNowPrice,
+                        endOfAuction: data.endOfAuction ? data.endOfAuction : null,
                         description: data.description,
                     });
 
@@ -63,6 +90,11 @@ const AuctionDetail: React.FC = () => {
         fetchAuctionItem();
     }, [id]);
 
+
+    const handleBuyNow = () => {
+        console.log(`Buying now for ${auctionItem?.buyNowPrice} PLN`);
+        // Implement your buy now logic here
+    };
     useEffect(() => {
         const calculateTimeRemaining = () => {
             if (!auctionItem || !auctionItem.endOfAuction) return;
@@ -100,47 +132,74 @@ const AuctionDetail: React.FC = () => {
     const auctionEndDate = auctionItem.endOfAuction ? auctionItem.endOfAuction.toDate().toLocaleString() : 'Not specified';
 
     return (
-        <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md overflow-hidden md:max-w-4xl pt-20">
-            <div className="md:flex">
-                <div className="md:flex-shrink-0">
-                    <img className="h-full w-full object-cover md:h-full md:w-48" src={auctionItem?.image} alt="Auction Item" />
-                </div>
-                <div className="p-8">
-                    <div className="uppercase tracking-wide text-base text-indigo-500 font-semibold">{auctionItem?.title}</div>
-                    <div className="mt-2 text-gray-500">
-                        <FontAwesomeIcon icon={faGavel} className="mr-2" />Current Bid: {auctionItem?.currentHighestBid} PLN
+        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow overflow-hidden">
+            <img className="w-full object-cover" style={{ height: '400px' }} src={auctionItem.image} alt="Auction Item" />
+            <div className="p-6">
+                <h1 className="text-2xl font-semibold mb-2">{auctionItem.title}</h1>
+                <p className="text-gray-700">{auctionItem.description}</p>
+                <div className="mt-4">
+                    <div className="flex flex-col justify-between items-center">
+                        <span className="flex items-center text-sm text-gray-500">
+                            <FontAwesomeIcon icon={faClock} className="mr-2" />End date: {auctionEndDate}
+                        </span>
+                        <span className="flex items-center text-sm text-gray-500">
+                            <FontAwesomeIcon icon={faGavel} className="mr-2" />Time Remaining: {liveTimeRemaining}
+                        </span>
                     </div>
                     <div className="mt-4">
-                        <FontAwesomeIcon icon={faClock} className="text-gray-500 mr-2" />
-                        Time Remaining: {liveTimeRemaining}
-                    </div>
-                    <div className="mt-4">
-                        <FontAwesomeIcon icon={faGavel} className="text-gray-500 mr-2" />
-                        End date: {auctionEndDate}
-                    </div>
-                    {!hasAuctionEnded && (
-                        <form onSubmit={handleBidSubmit} className="mt-8 flex justify-center items-center">
-                            <div className="flex items-center border rounded overflow-hidden">
-                                <input
-                                    type="number"
-                                    value={bidAmount}
-                                    onChange={(e) => setBidAmount(e.target.value)}
-                                    className="py-2 px-4"
-                                    placeholder="Bid"
-                                    style={{ width: '120px' }}
-                                    min="1"
-                                />
-                                <span className="bg-gray-200 py-2 px-4">PLN</span>
+                        <div className="flex flex-col justify-between items-center">
+                            <span className="flex items-center text-lg font-medium text-gray-900">
+                                <FontAwesomeIcon icon={faGavel} className="mr-2" />Current Bid: {auctionItem.currentHighestBid} PLN
+                            </span>
+                            {auctionItem.currentHighestBidderEmail && (
+                                <span className="flex items-center text-sm text-gray-500">
+                                    <FontAwesomeIcon icon={faUser} className="mr-2" />{auctionItem.currentHighestBidderEmail}
+                                </span>
+                            )}
+                        </div>
+                        {!hasAuctionEnded && (
+                            <div className="mt-4">
+                                <div className="flex flex-col items-center space-y-10 md:flex-row md:justify-center md:items-end md:space-y-0 md:space-x-10">
+                                    <div className="text-center">
+                                        <div className="text-gray-500 mb-2">
+                                            <FontAwesomeIcon icon={faMoneyBillWave} className="mr-2" />
+                                            Buy It Now Price: {auctionItem.buyNowPrice} PLN
+                                        </div>
+                                        <button
+                                            onClick={handleBuyNow}
+                                            className="bg-purple hover:bg-blue-600 text-white font-bold py-2 px-4 rounded my-6 md:mt-0 w-full md:w-auto"
+                                        >
+                                            Buy Now
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full">
+                                    <div className="w-full sm:w-auto flex items-center border rounded">
+                                        <input
+                                            type="number"
+                                            value={bidAmount}
+                                            onChange={(e) => setBidAmount(e.target.value)}
+                                            className="py-2 px-4 w-full"
+                                            placeholder="Enter bid"
+                                            min="1"
+                                        />
+                                        <span className="bg-gray-200 py-2 px-4">PLN</span>
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        onClick={handleBidSubmit}
+                                        className="bg-purple hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full sm:w-auto mt-4 sm:mt-0"
+                                    >
+                                        Place Bid
+                                    </button>
+                                </div>
                             </div>
-                            <button type="submit" className="bg-purple hover:bg-blue text-white font-bold py-2 px-4 rounded ml-4">
-                                Place Bid
-                            </button>
-                        </form>
-                    )}
+                        )}
+
+
+
+                    </div>
                 </div>
-            </div>
-            <div className="p-8">
-                <div className="block mt-4 text-lg leading-tight font-medium text-black ">{auctionItem?.description}</div>
             </div>
         </div>
     );
