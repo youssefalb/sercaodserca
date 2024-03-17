@@ -65,12 +65,8 @@ export default function App() {
             <Route path="/add-blog-post" element={<AddOrEditBlog />} />
             <Route path="/edit-blog-post/:postId" element={<AddOrEditBlog />} />
 
-            <Elements stripe={stripePromise}>
-              {/* Your routes or components that include the payment form */}
-              <Route path="/payment" element={<PaymentPage />} />
-            </Elements>
-
-
+            {/* Ensure Elements wraps only the PaymentPage */}
+            <Route path="/payment" element={<Elements stripe={stripePromise}><PaymentPage /></Elements>} />
           </Routes>
         </div>
       </BrowserRouter>
