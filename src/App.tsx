@@ -30,7 +30,7 @@ export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <div>
+        <div className="min-h-screen"> {/* This wraps your entire layout */}
           <NavBar />
           <Routes>
             <Route path="/" element={
@@ -52,7 +52,6 @@ export default function App() {
                   rightImageUrl={rightSideImgTwo}
                 />
                 <BlogsSection />
-                <Footer />
               </>
             } />
             <Route path="/login" element={<LoginPage />} />
@@ -69,6 +68,8 @@ export default function App() {
             <Route path="/payment" element={<Elements stripe={stripePromise}><PaymentPage /></Elements>} />
           </Routes>
         </div>
+        <Footer />
+
       </BrowserRouter>
     </AuthProvider>
   );

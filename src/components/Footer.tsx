@@ -36,7 +36,7 @@ const Footer = () => {
     }, []);
 
     return (
-        <footer className="fixed bg-blue text-white p-10 rounded-t-xl">
+        <footer className="mt-auto bg-blue text-white p-10 rounded-t-xl">
             <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-12 gap-9 ">
                 <div ref={leftColumnRef} className="flex flex-col mb-8 lg:mb-0">
                     <h3 className="font-bold text-lg mb-2">Charity Fund</h3>
