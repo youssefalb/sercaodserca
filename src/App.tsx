@@ -10,7 +10,7 @@ import NavBar from './components/Navbar';
 import HeroSection from './components/Hero';
 import About from './components/About';
 import Partners from './components/Partners';
-import SupportCard from './components/SupportCrad';
+import SupportCard from './components/SupportCard';
 import Footer from './components/Footer';
 import { AuthProvider } from './AuthContext'; // Import AuthProvider
 import AuctionsSection from './components/AuctionsSection';
@@ -43,6 +43,7 @@ export default function App() {
                   description="Join the effort to strengthen the Armed Forces of Ukraine, as well as to help the civilian population affected by Russian aggression"
                   buttonText="Make a contribution"
                   rightImageUrl={rightSideImg}
+                  id="help-army"
                 />
                 <AuctionsSection />
                 <SupportCard
@@ -50,6 +51,7 @@ export default function App() {
                   description="Join the effort to support refugees, providing them with essential aid and assistance in these challenging times"
                   buttonText="Make a Contribution"
                   rightImageUrl={rightSideImgTwo}
+                  id="help-refugees"
                 />
                 <BlogsSection />
               </>
@@ -66,11 +68,15 @@ export default function App() {
 
             {/* Ensure Elements wraps only the PaymentPage */}
             <Route path="/payment" element={<Elements stripe={stripePromise}><PaymentPage /></Elements>} />
+
           </Routes>
+
+
         </div>
         <Footer />
 
       </BrowserRouter>
+
     </AuthProvider>
   );
 }

@@ -1,15 +1,16 @@
 import React from 'react';
 
 interface SupportCardProps {
-  title: string;
-  description: string;
-  buttonText: string;
-  rightImageUrl: string;
+    title: string;
+    description: string;
+    buttonText: string;
+    rightImageUrl: string;
+    id: string;
 }
 
-const SupportCard: React.FC<SupportCardProps> = ({ title, description, buttonText, rightImageUrl }) => {
+const SupportCard: React.FC<SupportCardProps> = ({ title, description, buttonText, rightImageUrl, id }) => {
     return (
-        <div className="relative rounded-2xl overflow-hidden max-w-6xl mx-auto bg-cover lg:h-[300px] h-auto m-24"> {/* Adjust the height for mobile */}
+        <div id={id} className="relative rounded-2xl overflow-hidden max-w-6xl mx-auto bg-cover lg:h-[300px] h-auto m-24"> {/* Adjust the height for mobile */}
             {/* Separate div for background images to ensure they are behind content */}
             <div className="absolute inset-0">
                 <img src="./heroMobile.svg" alt="Mobile Background" className="lg:hidden w-full h-auto object-cover rounded-2xl" /> {/* Adjust height for mobile background */}

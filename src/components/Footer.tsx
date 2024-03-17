@@ -54,15 +54,13 @@ const Footer = () => {
                 </div>
                 <div ref={middleColumnRef} className="flex flex-row mb-8 lg:mb-0 lg:space-x-10 lg:col-span-1">
                     <div className="flex flex-col mb-4 w-full space-y-3">
-                        <h4 className="text-gray-300 whitespace-nowrap">Main</h4>
-                        <p className="text-gray-300 whitespace-nowrap">About the Fund</p>
-                        <p className="text-gray-300 whitespace-nowrap">Partners</p>
-                        <p className="text-gray-300 whitespace-nowrap">Army Support</p>
+                        <a href="#about" className="text-gray-300 whitespace-nowrap">About the Fund</a>
+                        <a href="#partners" className="text-gray-300 whitespace-nowrap">Partners</a>
+                        <a href="#help-army" className="text-gray-300 whitespace-nowrap">Army Support</a>
                     </div>
                     <div className="flex flex-col w-full space-y-3">
-                        <h4 className="text-gray-300 whitespace-nowrap">Auctions</h4>
-                        <p className="text-gray-300 whitespace-nowrap">News</p>
-                        <p className="text-gray-300 whitespace-nowrap">Reports</p>
+                        <a href="#auctions" className="text-gray-300 whitespace-nowrap">Auctions</a>
+                        <a href="#news" className="text-gray-300 whitespace-nowrap">News</a>
                     </div>
                 </div>
 

@@ -27,13 +27,12 @@ export default function Navbar() {
     const [email, setEmail] = useState(''); // Add state for email
     const [password, setPassword] = useState(''); // Add state for password
     const navItems = [
-        { id: 'home', name: 'Головна' },
-        { id: 'about', name: 'Про фонд' },
-        { id: 'partners', name: 'Партнери' },
-        { id: 'help-army', name: 'Допомога армії' },
-        { id: 'auctions', name: 'Аукціони' },
-        { id: 'news', name: 'Новини' },
-        { id: 'reports', name: 'Звіти' },
+        { id: 'about', name: 'About' },
+        { id: 'partners', name: 'Partners' },
+        { id: 'help-army', name: 'Help army' },
+        { id: 'auctions', name: 'Auctions' },
+        { id: 'help-refugees', name: 'Help refugees' },
+        { id: 'news', name: 'News' },
     ];
 
     const handleNavLinkClick = async (id: string) => {
@@ -101,7 +100,7 @@ export default function Navbar() {
                 {/* Conditional CTA buttons */}
                 {currentUser ? (
                     <button
-                        className="hidden lg:block text-white bg-black px-4 py-2 rounded-md mx-6 hover:bg-gray-500"
+                        className="hidden lg:block text-red-500 hover:text-white bg-white px-4 py-2 rounded-md mx-6 hover:bg-red-400 border-red-500 border-2"
                         onClick={async () => {
                             try {
                                 await logout();
@@ -145,6 +144,7 @@ export default function Navbar() {
                         Register
                     </button>
                 </div>
+
                 {/* Hamburger Icon for mobile */}
                 <div className="lg:hidden">
                     <button onClick={() => setIsMenuOpen(!isMenuOpen)}>

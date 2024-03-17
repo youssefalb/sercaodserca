@@ -50,7 +50,7 @@ const BlogDetail: React.FC = () => {
 
     return (
         <>
-            <article className="bg-white shadow-md overflow-hidden">
+            <article className="max-w-4xl mx-auto bg-white rounded-lg shadow overflow-hidden">
                 <div className="cursor-pointer" onClick={openModal}>
                     <img className=" object-cover w-full" style={{ maxHeight: '50vh' }} src={blogPost.image} alt="Blog Post" />
                 </div>

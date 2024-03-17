@@ -30,22 +30,22 @@ const BlogCard: React.FC<BlogCardProps> = ({ id, image, title, description, date
     };
 
     return (
-        <div className="border border-gray-300 rounded-lg p-4 flex flex-col items-center">
-            <div className="h-48 w-60 mb-4">
-                <img src={image} alt={title} className="object-cover h-full w-full rounded-t-lg" />
+        <div className="border border-gray-300 bg-white rounded-2xl p-4 flex flex-col items-center max-w-sm">
+            <div className="mb-4">
+                <img src={image} alt={title} className="object-cover h-48 w-60 rounded-t-lg" />
             </div>
             <h5 className="text-lg font-bold">{title}</h5>
             <p className="text-gray-600 mt-2">{description}</p>
             <p className="text-gray-500 text-sm mt-2">{datePublished}</p>
-            <Link to={`/blog/${id}`} className="hidden lg:block text-white bg-purple px-4 py-2 rounded-md m-6 hover:bg-gray-500">
+            <Link to={`/blog/${id}`} className="lg:block text-white bg-purple px-4 py-2 rounded-md m-6 hover:bg-gray-500">
                 Read More
             </Link>
-            {/* {isAdminUser(currentUser) && ( */}
-            <div className="space-x-2">
-                <button onClick={handleEdit} className="text-white bg-black px-3 py-2 rounded-md hover:bg-blue-700">Edit</button>
-                <button onClick={handleDelete} className="text-white bg-red-500 px-3 py-2 rounded-md hover:bg-red-700">Delete</button>
-            </div>
-            {/* )} */}
+            {isAdminUser(currentUser) && (
+                <div className="space-x-2">
+                    <button onClick={handleEdit} className="text-white bg-black px-3 py-2 rounded-md hover:bg-blue-700">Edit</button>
+                    <button onClick={handleDelete} className="text-white bg-red-500 px-3 py-2 rounded-md hover:bg-red-700">Delete</button>
+                </div>
+            )}
         </div>
     );
 };

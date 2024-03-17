@@ -21,7 +21,7 @@ const partners = [
 
 const Partners = () => {
     return (
-        <section id="hero" className="bg-gray-100 pt-10 pb-5 px-8 sm:px-6 lg:px-8 relative ">
+        <section id="partners" className="bg-gray-100 pt-10 pb-5 px-8 sm:px-6 lg:px-8 relative ">
             <h2 className="text-3xl font-semibold mb-6 mt-6 text-center">Partners</h2>
             <div className="flex flex-wrap justify-center items-center">
                 {partners.map(partner => (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase-config.js'; // Your Firebase configuration file
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'; 
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -39,13 +39,13 @@ const BlogsSection: React.FC = () => {
 
     const handleDeleteItem = async (itemId: string) => {
         await deleteDoc(doc(db, "blogPosts", itemId));
-        fetchBlogPosts(); 
+        fetchBlogPosts();
     };
 
     return (
-        <section className="p-6">
-            <div className="flex flex-col sm:flex-row sm:justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold sm:mb-0 mb-4 text-center sm:text-center flex-1">Blogs</h2>
+        <section id="news" className="p-6 bg-gray-100 pb-20 mx-auto">
+            <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:justify-between items-center mb-6 p-10">
+                <h2 className="text-3xl font-bold sm:mb-0 mb-4 text-center sm:text-center flex-1">Blogs</h2>
                 {isAdminUser(currentUser) && (
                     <button
                         className="bg-purple hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -57,7 +57,7 @@ const BlogsSection: React.FC = () => {
             </div>
             <CustomSlider>
                 {blogPosts.map((post) => (
-                    <BlogCard key={post.id} {...post} onDelete={() => handleDeleteItem(post.id)}/>
+                    <BlogCard key={post.id} {...post} onDelete={() => handleDeleteItem(post.id)} />
                 ))}
             </CustomSlider>
         </section>

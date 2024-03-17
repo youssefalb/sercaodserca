@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock, faGavel, faHammer, faMoneyBillWave, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faClock, faGavel, faUser, faMoneyBillWave, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 import { Timestamp, updateDoc } from 'firebase/firestore';
 import { doc, getDoc } from 'firebase/firestore';
@@ -18,6 +18,7 @@ interface AuctionItem {
     timeRemaining: string;
     endOfAuction: Timestamp | null;
     description: string;
+    AuctionEnded?: boolean;
 }
 
 
@@ -31,6 +32,7 @@ const AuctionDetail: React.FC = () => {
     const [liveTimeRemaining, setLiveTimeRemaining] = useState<string>("");
     const [hasAuctionEnded, setHasAuctionEnded] = useState<boolean>(false);
     const [bidAmount, setBidAmount] = useState('');
+    const [isImageModalOpen, setImageModalOpen] = useState(false);
 
 
     const handleBidSubmit = async (e: { preventDefault: () => void; }) => {
@@ -73,13 +75,15 @@ const AuctionDetail: React.FC = () => {
                     currentHighestBid: data.currentHighestBid,
                     currentHighestBidderEmail,
                     timeRemaining: "",
+                    AuctionEnded: data.AuctionEnded,
                     buyNowPrice: data.buyNowPrice,
                     endOfAuction: data.endOfAuction ? data.endOfAuction : null,
                     description: data.description,
                 });
 
                 if (endOfAuction) {
-                    setHasAuctionEnded(new Date() > endOfAuction);
+                    console.log('End of auction: ', endOfAuction);
+                    setHasAuctionEnded(new Date() > endOfAuction || data.AuctionEnded);
                 }
             } else {
                 console.log('No such document!');
@@ -93,10 +97,27 @@ const AuctionDetail: React.FC = () => {
     }, [id]);
 
 
-    const handleBuyNow = () => {
+    const handleBuyNow = async () => {
         console.log(`Buying now for ${auctionItem?.buyNowPrice} PLN`);
-        // Implement your buy now logic here
+        if (auctionItem?.id) {
+            try {
+                //TODO: here send email to the seller and buyer
+
+                const auctionRef = doc(db, 'auctions', auctionItem.id);
+                await updateDoc(auctionRef, {
+                    AuctionEnded: true,
+                });
+
+                setHasAuctionEnded(true);
+                alert('The auction has ended successfully.');
+
+            } catch (error) {
+                console.error('Error ending auction: ', error);
+                alert('There was an error ending the auction.');
+            }
+        }
     };
+
     useEffect(() => {
         const calculateTimeRemaining = () => {
             if (!auctionItem || !auctionItem.endOfAuction) return;
@@ -104,7 +125,7 @@ const AuctionDetail: React.FC = () => {
             const end = auctionItem.endOfAuction.toDate().getTime();
             const distance = end - now;
 
-            if (distance < 0) {
+            if (distance < 0 || auctionItem.AuctionEnded) {
                 setLiveTimeRemaining("Auction ended");
                 setHasAuctionEnded(true);
                 return;
@@ -128,14 +149,23 @@ const AuctionDetail: React.FC = () => {
         return null;
     }
 
+
+
+
     if (!auctionItem) {
         return <div>Loading...</div>;
     }
     const auctionEndDate = auctionItem.endOfAuction ? auctionItem.endOfAuction.toDate().toLocaleString() : 'Not specified';
+    const openImageModal = () => setImageModalOpen(true);
 
+    // Function to close the modal
+    const closeImageModal = () => setImageModalOpen(false);
     return (
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow overflow-hidden">
-            <img className="w-full object-cover" style={{ height: '400px' }} src={auctionItem.image} alt="Auction Item" />
+            <div onClick={openImageModal} className="cursor-pointer">
+
+                <img className="w-full object-cover" style={{ height: '400px' }} src={auctionItem.image} alt="Auction Item" />
+            </div>
             <div className="p-6">
                 <h1 className="text-2xl font-semibold mb-2">{auctionItem.title}</h1>
                 <p className="text-gray-700">{auctionItem.description}</p>
@@ -197,7 +227,18 @@ const AuctionDetail: React.FC = () => {
                                 </div>
                             </div>
                         )}
-
+                        {isImageModalOpen && (
+                            <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center" onClick={closeImageModal}>
+                                <div className="bg-white p-4 rounded-lg shadow-lg" onClick={e => e.stopPropagation()}>
+                                    <FontAwesomeIcon icon={faTimes} className="absolute top-0 right-0 m-4 cursor-pointer text-black" onClick={closeImageModal} />
+                                    <img
+                                        className="max-w-full max-h-full"
+                                        src={auctionItem.image}
+                                        alt="Auction Item Large View"
+                                    />
+                                </div>
+                            </div>
+                        )}
 
 
                     </div>
