@@ -43,8 +43,9 @@ const AuctionDetail: React.FC = () => {
                 const auctionRef = doc(db, "auctions", id);
                 await updateDoc(auctionRef, {
                     currentHighestBid: newBid,
-                    currentHighestBidder: currentUser.uid, // Update the current highest bidder to the current user's UID
+                    currentHighestBidder: currentUser.email, // Update the current highest bidder to the current user's UID
                 });
+                fetchAuctionItem(); // Fetch the auction item again to reflect the changes
                 alert(`Bid of ${newBid} PLN placed successfully.`);
                 // Optionally fetch auction item again or update state directly to reflect changes
             } else {
@@ -53,39 +54,40 @@ const AuctionDetail: React.FC = () => {
         }
     };
 
-    useEffect(() => {
-        const fetchAuctionItem = async () => {
-            if (id) {
-                const docRef = doc(db, 'auctions', id);
-                const docSnap = await getDoc(docRef);
+    const fetchAuctionItem = async () => {
+        if (id) {
+            const docRef = doc(db, 'auctions', id);
+            const docSnap = await getDoc(docRef);
 
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    const endOfAuction = data.endOfAuction ? data.endOfAuction.toDate() : null;
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                const endOfAuction = data.endOfAuction ? data.endOfAuction.toDate() : null;
 
-                    let currentHighestBidderEmail = data.currentHighestBidder;
+                let currentHighestBidderEmail = data.currentHighestBidder;
 
 
-                    setAuctionItem({
-                        id: docSnap.id,
-                        image: data.image,
-                        title: data.title,
-                        currentHighestBid: data.currentHighestBid,
-                        currentHighestBidderEmail,
-                        timeRemaining: "",
-                        buyNowPrice: data.buyNowPrice,
-                        endOfAuction: data.endOfAuction ? data.endOfAuction : null,
-                        description: data.description,
-                    });
+                setAuctionItem({
+                    id: docSnap.id,
+                    image: data.image,
+                    title: data.title,
+                    currentHighestBid: data.currentHighestBid,
+                    currentHighestBidderEmail,
+                    timeRemaining: "",
+                    buyNowPrice: data.buyNowPrice,
+                    endOfAuction: data.endOfAuction ? data.endOfAuction : null,
+                    description: data.description,
+                });
 
-                    if (endOfAuction) {
-                        setHasAuctionEnded(new Date() > endOfAuction);
-                    }
-                } else {
-                    console.log('No such document!');
+                if (endOfAuction) {
+                    setHasAuctionEnded(new Date() > endOfAuction);
                 }
+            } else {
+                console.log('No such document!');
             }
-        };
+        }
+    };
+
+    useEffect(() => {
 
         fetchAuctionItem();
     }, [id]);
