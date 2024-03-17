@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { useEffect } from 'react';
+import { functions } from '../firebase';
+
+const stripePromise = loadStripe('pk_test_51OuzPy014et4YmUMZXuPzFi7jzWRz709qgoFrFJsxaoPKz9BoMYQ881UCOP6e7KT0Xp895Lo88RzJKYLxgaJRERI00Td3l8onn');
 
 const PaymentPage = () => {
     const [amount, setAmount] = useState(0);
