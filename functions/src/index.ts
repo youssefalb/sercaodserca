@@ -18,7 +18,7 @@ exports.createStripeCheckoutSession = functions.https.onCall(async (data, contex
       payment_method_types: ['card'],
       line_items: [{
         price_data: {
-          currency: 'usd',
+          currency: 'pln',
           product_data: {
             name: 'Custom Donation',
           },

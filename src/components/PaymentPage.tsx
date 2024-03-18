@@ -1,20 +1,59 @@
 import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { useEffect } from 'react';
-// import { functions } from '../firebase';
+import { getFunctions, httpsCallable } from 'firebase/functions';
+import { app } from '../firebase-config';
 
 const stripePromise = loadStripe('pk_test_51OuzPy014et4YmUMZXuPzFi7jzWRz709qgoFrFJsxaoPKz9BoMYQ881UCOP6e7KT0Xp895Lo88RzJKYLxgaJRERI00Td3l8onn');
 
+interface CreateSessionResponse {
+    sessionId: string;
+}
+
 const PaymentPage = () => {
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState('');
+    const functions = getFunctions(app); // Initialize Firebase Functions
 
-    const updateAmount = (newAmount: number) => {
-        setAmount(newAmount);
+    const handlePayment = async () => {
+        const stripe = await stripePromise;
+        if (!stripe) {
+            console.error('Stripe is not initialized');
+            return;
+        }
+        
+        // Convert the amount to cents as Stripe expects amounts to be in the smallest currency unit
+        const amountInCents = Math.round(parseInt(amount) * 100);
+    
+        try {
+            const createCheckoutSession = httpsCallable(functions, 'createStripeCheckoutSession');
+
+            const sessionResponse = await createCheckoutSession({
+                amount: amountInCents,
+                successUrl: window.location.origin + '/payment-success', 
+                cancelUrl: window.location.origin + '/payment-cancel'
+              });
+            
+            // Cast the response data to the expected type
+            const sessionData: CreateSessionResponse = sessionResponse.data as CreateSessionResponse;
+    
+            const result = await stripe.redirectToCheckout({
+                sessionId: sessionData.sessionId
+            });
+    
+            if (result.error) {
+                console.error('Stripe Checkout error:', result.error.message);
+            }
+        } catch (error) {
+            console.error('Error creating checkout session:', error);
+        }
     };
-
-    // Function to handle the custom amount input change
+    
+    const updateAmount = (newAmount: number) => {
+        setAmount(newAmount.toString()); // Convert number to string
+    };
+    
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAmount(Number(e.target.value));
+        setAmount(e.target.value); // Keep as string, no need to convert
     };
 
     // Define the fixed amounts
@@ -41,7 +80,7 @@ const PaymentPage = () => {
                         <div className="mt-4">
                             <input
                                 type="number"
-                                value={amount === 0 ? '' : amount}
+                                value={parseInt(amount) === 0 ? '' : amount}
                                 onChange={handleInputChange}
                                 placeholder="Enter your amount"
                                 className="w-full px-3 py-2 border rounded-3xl"
@@ -49,7 +88,7 @@ const PaymentPage = () => {
                         </div>
                         <div className="mt-4">
                             <button
-                                onClick={() => {/* Function to handle the payment process */ }}
+                                onClick={handlePayment}
                                 className="w-full px-6 py-2 bg-purple text-white rounded-3xl hover:bg-purple"
                             >
                                 Make a contribution
