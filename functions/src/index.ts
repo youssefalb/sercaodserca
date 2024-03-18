@@ -41,3 +41,31 @@ exports.createStripeCheckoutSession = functions.https.onCall(async (data, contex
     }
   }
 });
+
+
+
+exports.sendEmailOnAuctionEnd = functions.firestore
+    .document('auctions/{auctionId}')
+    .onUpdate(async (change, context) => {
+        const newValue = change.after.data();
+        const oldValue = change.before.data();
+        console.log(`AuctionEnded changed from ${oldValue.AuctionEnded} to ${newValue.AuctionEnded}`);
+        // Check if AuctionEnded changed to true
+        if (!oldValue.AuctionEnded && newValue.AuctionEnded) {
+            const auctionId = context.params.auctionId;
+            console.log(`Auction ${auctionId} ended`);
+
+            // Here you should add your logic to send an email
+            // For example, using the "mail" collection as per the extension:
+            const mailRef = admin.firestore().collection('mail').doc();
+            await mailRef.set({
+                to: ['biurowebokraft@gmail.com'], 
+                message: {
+                    subject: `Auction ${auctionId} has ended!`,
+                    text: `The auction with ID ${auctionId} has successfully ended.`,
+                    html: `The auction with ID ${auctionId} has successfully ended.`, // Customize your HTML email content here
+                },
+            });
+            console.log(`Email queued for delivery!`);
+        }
+    });
