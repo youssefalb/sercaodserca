@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Dummy partner data - replace with real data
 const partners = [
@@ -20,6 +21,9 @@ const partners = [
 ];
 
 const Partners = () => {
+
+    const navigate = useNavigate();
+
     return (
         <section id="partners" className="bg-gray-100 pt-10 pb-5 px-8 sm:px-6 lg:px-8 relative ">
             <h2 className="text-3xl font-semibold mb-6 mt-6 text-center">Partners</h2>
@@ -33,10 +37,10 @@ const Partners = () => {
             <div className="flex justify-center mt-10 p-4">
 
                 <button
-                    className="text-white bg-black px-4 py-2 mb-10 rounded-md hover:bg-gray-500"
-                    onClick={() => { }}
+                    className="text-white bg-purple px-4 py-2 mb-10 rounded-md hover:bg-gray-500"
+                    onClick={() => navigate('/payment')}
                 >
-                    Become a Partner with a Donation
+                    Become a Partner
                 </button>
             </div>
         </section>

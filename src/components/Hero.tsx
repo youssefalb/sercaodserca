@@ -40,7 +40,7 @@ export default function HeroSection() {
 
                     <div className="flex justify-center md:justify-start space-x-4 mt-10">
                         <a href="/payment" className="bg-black text-white text-md font-medium px-6 py-2 rounded-full transition duration-300 ease-in-out hover:bg-gray-700">Make pledge</a>
-                        <a href="#services" className="text-md font-medium px-5 py-2 underline decoration-black decoration-2 underline-offset-4 hover:text-gray-600">Learn more</a>
+                        <a href="#about" className="text-md font-medium px-5 py-2 underline decoration-black decoration-2 underline-offset-4 hover:text-gray-600">Learn more</a>
                     </div>
                 </div>
                 {/* Commented out PricingSection in case it's not needed here */}

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Slider, { Settings } from 'react-slick';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
@@ -20,6 +20,15 @@ const CustomSlider: React.FC<CustomSliderProps> = ({ children }) => {
         setDotRangeStart(newStart);
         setDotRangeEnd(newEnd);
     };
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            if (sliderRef.current) {
+                sliderRef.current.slickGoTo(0);
+            }
+        }, 1000); // Adjust time as necessary
+        return () => clearTimeout(timeout);
+    }, [sliderRef.current]);
 
     const settings: Settings = {
         dots: true,

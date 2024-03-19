@@ -10,7 +10,7 @@ const About = () => {
             <div className="w-full md:w-3/4 p-8">
                 <h2 className="text-2xl font-semibold mb-6 text-center md:text-left">About the Fund</h2>
                 <p className="mb-4 text-center md:text-left">
-                    The fund's mission is to provide financial and non-financial assistance to Ukraine; including support for families and individuals in difficult living situations...
+                    The fund's mission is to provide financial and non-financial assistance to Ukraine; including support for families and individuals in difficult living situations
                 </p>
 
                 <div className="space-y-2 mb-6 text-center md:text-left">

@@ -70,7 +70,7 @@ export default function Navbar() {
 
     return (
         <header className="fixed top-0 z-50 bg-white p-4 w-full border-b">
-            <div className="px-10 mx-auto flex justify-between items-center">
+            <div className="lg:px-10 mx-auto flex justify-between items-center">
                 <div className="flex">
                     <a
                         href="#hero"
@@ -130,7 +130,40 @@ export default function Navbar() {
                     </>
                 )}
 
-                <div className="flex lg:hidden">
+
+                {currentUser ? (
+                    <button
+                        className="lg:hidden flex text-red-500 hover:text-white bg-white px-2 py-1 rounded-md mx-6 hover:bg-red-400 border-red-500 border-2"
+                        onClick={async () => {
+                            try {
+                                await logout();
+                            } catch (error) {
+                                console.error('Error logging out: ', error);
+                            }
+                        }}
+                    >
+                        Logout
+                    </button>
+                ) : (
+                    <div className='flex'>
+                        <button
+                            className="lg:hidden flex text-white bg-purple border-purple border-2 px-2 py-1 rounded-md hover:bg-purple"
+                            onClick={() => handleNavLinkClick('login')}
+                            ref={loginBtnRef}
+                        >
+                            Login
+                        </button>
+                        <button
+                            className="lg:hidden flex text-purple border-purple border-2 px-2 py-1 rounded-md ml-2 hover:bg-purple hover:text-white"
+                            onClick={() => handleNavLinkClick('register')}
+                            ref={registerBtnRef}
+                        >
+                            Register
+                        </button>
+                    </div>
+                )}
+
+                {/* <div className="flex lg:hidden">
                     <button
                         className="text-white bg-black px-4 py-2 rounded-md mr-2 hover:bg-gray-500"
                         onClick={() => handleNavLinkClick('login')}
@@ -143,7 +176,7 @@ export default function Navbar() {
                     >
                         Register
                     </button>
-                </div>
+                </div> */}
 
                 {/* Hamburger Icon for mobile */}
                 <div className="lg:hidden">
