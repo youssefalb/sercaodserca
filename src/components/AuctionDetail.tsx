@@ -7,6 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { User } from 'firebase/auth';
 import { useAuth } from '../AuthContext';
+import { time } from 'console';
 
 interface AuctionItem {
     id: string;
@@ -65,15 +66,13 @@ const AuctionDetail: React.FC = () => {
                 const data = docSnap.data();
                 const endOfAuction = data.endOfAuction ? data.endOfAuction.toDate() : null;
 
-                let currentHighestBidderEmail = data.currentHighestBidder;
-
 
                 setAuctionItem({
                     id: docSnap.id,
                     image: data.image,
                     title: data.title,
                     currentHighestBid: data.currentHighestBid,
-                    currentHighestBidderEmail,
+                    currentHighestBidderEmail: data.currentHighestBidderEmail,
                     timeRemaining: "",
                     AuctionEnded: data.AuctionEnded,
                     buyNowPrice: data.buyNowPrice,
@@ -92,22 +91,29 @@ const AuctionDetail: React.FC = () => {
     };
 
     useEffect(() => {
-
         fetchAuctionItem();
+        console.log('Fetching auction item...');
+        console.log('Auction item: ', auctionItem);
+        console.log('Has auction ended: ', hasAuctionEnded);
     }, [id]);
 
 
     const handleBuyNow = async () => {
         console.log(`Buying now for ${auctionItem?.buyNowPrice} PLN`);
-        if (auctionItem?.id) {
+        if (auctionItem?.id && currentUser) {
             try {
                 //TODO: here send email to the seller and buyer
 
                 const auctionRef = doc(db, 'auctions', auctionItem.id);
                 await updateDoc(auctionRef, {
-                    AuctionEnded: true,
+                    currentHighestBidderEmail: currentUser.email,
                 });
 
+                await updateDoc(auctionRef, {
+                    AuctionEnded: true,
+                    currentHighestBid: auctionItem.buyNowPrice,
+                });
+                auctionItem.AuctionEnded = true;
                 setHasAuctionEnded(true);
                 alert('The auction has ended successfully.');
 
@@ -115,6 +121,9 @@ const AuctionDetail: React.FC = () => {
                 console.error('Error ending auction: ', error);
                 alert('There was an error ending the auction.');
             }
+        }
+        else {
+            alert('There was an error ending the auction.');
         }
     };
 
