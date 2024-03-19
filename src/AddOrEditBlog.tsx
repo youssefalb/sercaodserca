@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { doc, setDoc, getDoc, collection } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from './firebase-config'; // Path to your Firebase config
-import { useAuth } from './AuthContext';
-import { useParams, useNavigate } from 'react-router-dom';
+import { db, storage } from './firebase-config'; // Make sure this path is correct
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // import styles
+import DOMPurify from 'dompurify';
+import { useAuth } from './AuthContext'; // Make sure this path is correct
 
 const AddBlogPost: React.FC = () => {
     const [title, setTitle] = useState('');
@@ -106,15 +109,13 @@ const AddBlogPost: React.FC = () => {
             </div>
             <div className="mb-4">
                 <label htmlFor="content" className="block text-gray-700 text-sm font-bold mb-2">Content:</label>
-                <textarea
-                    id="content"
+                <ReactQuill
                     value={content}
-                    onChange={e => setContent(e.target.value)}
-                    placeholder="Enter Content"
-                    required
-                    rows={6}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                ></textarea>
+                    onChange={setContent}
+                    theme="snow"
+                    modules={quillModules}
+                    formats={quillFormats}
+                />
             </div>
             <div className="mb-4">
                 <label htmlFor="image" className="block text-gray-700 text-sm font-bold mb-2">Image URL:</label>
@@ -142,5 +143,30 @@ const AddBlogPost: React.FC = () => {
         </form>
     );
 };
+
+
+// Define the toolbar options and formats for ReactQuill
+const quillModules = {
+    toolbar: [
+        [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+        [{ size: [] }],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' },
+        { 'indent': '-1' }, { 'indent': '+1' }],
+        ['link', 'image', 'video'],
+        ['clean']
+    ],
+    clipboard: {
+        // Toggle to add extra line breaks when pasting HTML:
+        matchVisual: false,
+    }
+};
+
+const quillFormats = [
+    'header', 'font', 'size',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image', 'video'
+];
 
 export default AddBlogPost;

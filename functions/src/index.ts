@@ -50,26 +50,45 @@ exports.sendEmailOnAuctionEnd = functions.firestore
     .onUpdate(async (change, context) => {
         const newValue = change.after.data();
         const oldValue = change.before.data();
+        console.log(`Auction changed from ${oldValue} to ${newValue}`);
         console.log(`AuctionEnded changed from ${oldValue.AuctionEnded} to ${newValue.AuctionEnded}`);
-        // Check if AuctionEnded changed to true
-        if (!oldValue.AuctionEnded && newValue.AuctionEnded) {
+        console.log(`currentHighestBidder changed from ${oldValue.currentHighestBidderEmail} to ${newValue.currentHighestBidderEmail}`);
+        if (!oldValue.AuctionEnded && newValue.AuctionEnded && newValue.currentHighestBidderEmail) {
             const auctionId = context.params.auctionId;
-            console.log(`Auction ${auctionId} ended`);
-
-            // Here you should add your logic to send an email
-            // For example, using the "mail" collection as per the extension:
+            const auctionTitle = newValue.title; // Make sure the title is being retrieved correctly
+            
             const mailRef = admin.firestore().collection('mail').doc();
             await mailRef.set({
-                to: ['biurowebokraft@gmail.com'], 
+                to: [newValue.currentHighestBidderEmail],
                 message: {
-                    subject: `Auction ${auctionId} has ended!`,
-                    text: `The auction with ID ${auctionId} has successfully ended.`,
-                    html: `The auction with ID ${auctionId} has successfully ended.`, // Customize your HTML email content here
+                    subject: `Congratulations! You've Won the Auction for ${auctionTitle}`,
+                    text: `You have won the auction "${auctionTitle}". Please check your email for further instructions.`,
+                    html: `
+                        <h1>Congratulations!</h1>
+                        <p>You have successfully won the auction for <strong>${auctionTitle}</strong>.</p>
+                        <h2>Auction Details:</h2>
+                        <p><strong>Auction Title:</strong> ${auctionTitle}</p>
+                        <p><strong>Auction ID:</strong> ${auctionId}</p>
+                        <h2>Payment Instructions:</h2>
+                        <p>Please complete the payment using the bank details provided below:</p>
+                        <table>
+                            <tr><td>Customer Number:</td><td>ZMW8D5</td></tr>
+                            <tr><td>Bank:</td><td>BNP PARIBAS</td></tr>
+                            <tr><td>SWIFT Code:</td><td>PRABPLPKXXX</td></tr>
+                            <tr><td>IBAN:</td><td>PL09160011721749583650000001</td></tr>
+                        </table>
+                        <p>Use your Auction ID (${auctionId}) as the reference for your payment.</p>
+                        <p>After completing the payment, please reply to this email with a confirmation of the transfer and your contact information.</p>
+                        <p>If you need assistance or have any questions, please feel free to contact us.</p>
+                        <p>Warm regards,</p>
+                        <p>Od Serca do Serca</p>
+                    `,
                 },
             });
             console.log(`Email queued for delivery!`);
         }
     });
+
 
     // for now commneted out because we do not want a lot of calls to the function in development
 // exports.checkAndEndAuctions = functions.pubsub.schedule('every 1 minutes').onRun(async context => {

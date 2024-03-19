@@ -4,6 +4,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase-config'; // Update with the correct path to your firebase config
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
+import DOMPurify from 'dompurify';
 
 interface BlogPost {
     id: string;
@@ -12,6 +13,12 @@ interface BlogPost {
     content: string;
     publishDate: Date;
 }
+
+const createMarkup = (htmlContent: string) => {
+    return {
+        __html: DOMPurify.sanitize(htmlContent) // DOMPurify is used to sanitize the HTML content
+    };
+};
 
 const BlogDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -60,9 +67,8 @@ const BlogDetail: React.FC = () => {
                         <FontAwesomeIcon icon={faCalendarAlt} className="text-gray-500 mr-2" />
                         Published on: {blogPost.publishDate.toLocaleDateString()}
                     </p>
-                    <section className="prose max-w-none">
-                        {blogPost.content}
-                    </section>
+                    <section className="prose max-w-none" dangerouslySetInnerHTML={createMarkup(blogPost.content)} />
+
                 </div>
             </article>
 

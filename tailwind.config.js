@@ -79,7 +79,12 @@ module.exports = {
   plugins: [
     // Add Tailwind CSS plugins here, for example:
     // require('@tailwindcss/forms'),
-    // require('@tailwindcss/typography'),
+    require('@tailwindcss/typography'),
+  ],
+  safelist: [
+    'prose',
+    'prose-xl',
+    // ... any other dynamic classes
   ],
 };
 

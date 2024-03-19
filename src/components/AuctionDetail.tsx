@@ -46,7 +46,7 @@ const AuctionDetail: React.FC = () => {
                 const auctionRef = doc(db, "auctions", id);
                 await updateDoc(auctionRef, {
                     currentHighestBid: newBid,
-                    currentHighestBidder: currentUser.email, // Update the current highest bidder to the current user's UID
+                    currentHighestBidderEmail: currentUser.email, // Update the current highest bidder to the current user's UID
                 });
                 fetchAuctionItem(); // Fetch the auction item again to reflect the changes
                 alert(`Bid of ${newBid} PLN placed successfully.`);
