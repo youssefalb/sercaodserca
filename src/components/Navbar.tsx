@@ -46,6 +46,22 @@ export default function Navbar() {
             setIsMenuOpen(false);
         }
     };
+    useEffect(() => {
+        navItems.forEach(item => {
+            gsap.to({}, {
+                scrollTrigger: {
+                    trigger: `#${item.id}`,
+                    start: "top center",
+                    end: "bottom center",
+                    onToggle: self => self.isActive && setActiveSection(item.id),
+                },
+            });
+        });
+
+        // Clean up ScrollTriggers when component unmounts or navItems change
+        return () => ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    }, [navItems]);
+
 
     useEffect(() => {
         // Set initial states for animation if needed
