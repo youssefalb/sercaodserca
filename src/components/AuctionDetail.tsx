@@ -24,6 +24,10 @@ interface AuctionItem {
 }
 
 
+enum Action {
+    BuyNow,
+    PlaceBid,
+}
 
 const AuctionDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -36,31 +40,68 @@ const AuctionDetail: React.FC = () => {
     const [bidAmount, setBidAmount] = useState('');
     const [isImageModalOpen, setImageModalOpen] = useState(false);
     const [isConfirmationModalOpen, setConfirmationModalOpen] = useState<boolean>(false);
+    const [action, setAction] = useState<Action | null>(null); // New state to track the current action
 
     const handleBuyNowClick = () => {
+        setAction(Action.BuyNow); 
         setConfirmationModalOpen(true);
     };
 
+    const handlePlaceBidClick = () => {
+        if (Number(bidAmount) > (auctionItem?.currentHighestBid ?? 0)) {
+            console.log('Placing bid...');
+            console.log('Bid amount: tryyyyyyyyyyy');
+            setAction(Action.PlaceBid);
+            setConfirmationModalOpen(true);
+        } else {
+            alert('Your bid must be higher than the current highest bid.');
+        }
+    };
 
-    const handleBidSubmit = async (e: { preventDefault: () => void; }) => {
-        e.preventDefault();
-        // Ensure there is a currentUser and a bid amount before proceeding
-        if (currentUser && bidAmount) {
+
+    const handleConfirm = async () => {
+        setConfirmationModalOpen(false);
+
+        if (action === Action.BuyNow && auctionItem?.id && currentUser) {
+            console.log(`Buying now for ${auctionItem.buyNowPrice} PLN`);
+            try {
+                const auctionRef = doc(db, 'auctions', auctionItem.id);
+                await updateDoc(auctionRef, {
+                    currentHighestBidderEmail: currentUser.email,
+                    AuctionEnded: true,
+                    currentHighestBid: auctionItem.buyNowPrice,
+                });
+                alert('The auction has ended successfully.');
+            } catch (error) {
+                console.error('Error ending auction: ', error);
+                alert('There was an error ending the auction.');
+            }
+        } else if (action === Action.PlaceBid && currentUser && bidAmount) {
             const newBid = Number(bidAmount);
             const currentHighestBid = auctionItem?.currentHighestBid ?? 0;
-            if (newBid > currentHighestBid && id !== undefined) {
-                const auctionRef = doc(db, "auctions", id);
-                await updateDoc(auctionRef, {
-                    currentHighestBid: newBid,
-                    currentHighestBidderEmail: currentUser.email,
-                });
-                fetchAuctionItem();
-                alert(`Bid of ${newBid} PLN placed successfully.`);
+            if (newBid > currentHighestBid && auctionItem?.id) {
+                try {
+                    const auctionRef = doc(db, "auctions", auctionItem.id);
+                    await updateDoc(auctionRef, {
+                        currentHighestBid: newBid,
+                        currentHighestBidderEmail: currentUser.email,
+                    });
+                    alert(`Bid of ${newBid} PLN placed successfully.`);
+                } catch (error) {
+                    console.error('Error placing bid: ', error);
+                    alert('There was an error placing your bid.');
+                }
             } else {
                 alert('Your bid must be higher than the current highest bid.');
             }
         }
+
+        // Reset action and fetch the latest auction item state
+        setAction(null);
+        fetchAuctionItem();
+        setHasAuctionEnded(auctionItem?.AuctionEnded ?? false);
     };
+
 
     const fetchAuctionItem = async () => {
         if (id) {
@@ -103,36 +144,6 @@ const AuctionDetail: React.FC = () => {
     }, [id]);
 
 
-    const handleBuyNow = async () => {
-        setConfirmationModalOpen(false);
-
-        console.log(`Buying now for ${auctionItem?.buyNowPrice} PLN`);
-        if (auctionItem?.id && currentUser) {
-            try {
-                //TODO: here send email to the seller and buyer
-
-                const auctionRef = doc(db, 'auctions', auctionItem.id);
-                await updateDoc(auctionRef, {
-                    currentHighestBidderEmail: currentUser.email,
-                });
-
-                await updateDoc(auctionRef, {
-                    AuctionEnded: true,
-                    currentHighestBid: auctionItem.buyNowPrice,
-                });
-                auctionItem.AuctionEnded = true;
-                setHasAuctionEnded(true);
-                alert('The auction has ended successfully.');
-
-            } catch (error) {
-                console.error('Error ending auction: ', error);
-                alert('There was an error ending the auction.');
-            }
-        }
-        else {
-            alert('There was an error ending the auction.');
-        }
-    };
 
     useEffect(() => {
         const calculateTimeRemaining = () => {
@@ -165,8 +176,7 @@ const AuctionDetail: React.FC = () => {
         return null;
     }
 
-
-
+ 
 
     if (!auctionItem) {
         return <div>Loading...</div>;
@@ -235,7 +245,7 @@ const AuctionDetail: React.FC = () => {
                                     </div>
                                     <button
                                         type="submit"
-                                        onClick={handleBidSubmit}
+                                        onClick={handlePlaceBidClick}
                                         className="bg-purple hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full sm:w-auto mt-4 sm:mt-0"
                                     >
                                         Place Bid
@@ -263,9 +273,9 @@ const AuctionDetail: React.FC = () => {
             <ConfirmationModal
                 isOpen={isConfirmationModalOpen}
                 onClose={() => setConfirmationModalOpen(false)}
-                onConfirm={handleBuyNow}
-                title="Confirm Purchase"
-                message="Are you sure you want to buy this item now?"
+                onConfirm={handleConfirm}
+                title={`Confirm ${action === Action.BuyNow ? 'Purchase' : 'Bid'}`}
+                message={`Are you sure you want to ${action === Action.BuyNow ? 'buy this item now' : 'place this bid'}?`}
             />
         </div>
     );
