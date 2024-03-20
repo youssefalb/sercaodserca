@@ -8,6 +8,7 @@ import { db } from '../firebase-config';
 import { User } from 'firebase/auth';
 import { useAuth } from '../AuthContext';
 import { time } from 'console';
+import ConfirmationModal from './ConfirmationModal';
 
 interface AuctionItem {
     id: string;
@@ -34,6 +35,11 @@ const AuctionDetail: React.FC = () => {
     const [hasAuctionEnded, setHasAuctionEnded] = useState<boolean>(false);
     const [bidAmount, setBidAmount] = useState('');
     const [isImageModalOpen, setImageModalOpen] = useState(false);
+    const [isConfirmationModalOpen, setConfirmationModalOpen] = useState<boolean>(false);
+
+    const handleBuyNowClick = () => {
+        setConfirmationModalOpen(true);
+    };
 
 
     const handleBidSubmit = async (e: { preventDefault: () => void; }) => {
@@ -46,11 +52,10 @@ const AuctionDetail: React.FC = () => {
                 const auctionRef = doc(db, "auctions", id);
                 await updateDoc(auctionRef, {
                     currentHighestBid: newBid,
-                    currentHighestBidderEmail: currentUser.email, // Update the current highest bidder to the current user's UID
+                    currentHighestBidderEmail: currentUser.email,
                 });
-                fetchAuctionItem(); // Fetch the auction item again to reflect the changes
+                fetchAuctionItem();
                 alert(`Bid of ${newBid} PLN placed successfully.`);
-                // Optionally fetch auction item again or update state directly to reflect changes
             } else {
                 alert('Your bid must be higher than the current highest bid.');
             }
@@ -99,6 +104,8 @@ const AuctionDetail: React.FC = () => {
 
 
     const handleBuyNow = async () => {
+        setConfirmationModalOpen(false);
+
         console.log(`Buying now for ${auctionItem?.buyNowPrice} PLN`);
         if (auctionItem?.id && currentUser) {
             try {
@@ -207,7 +214,7 @@ const AuctionDetail: React.FC = () => {
                                             Buy It Now Price: {auctionItem.buyNowPrice} PLN
                                         </div>
                                         <button
-                                            onClick={handleBuyNow}
+                                            onClick={handleBuyNowClick}
                                             className="bg-purple hover:bg-blue-600 text-white font-bold py-2 px-4 rounded my-6 md:mt-0 w-full md:w-auto"
                                         >
                                             Buy Now
@@ -253,6 +260,13 @@ const AuctionDetail: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <ConfirmationModal
+                isOpen={isConfirmationModalOpen}
+                onClose={() => setConfirmationModalOpen(false)}
+                onConfirm={handleBuyNow}
+                title="Confirm Purchase"
+                message="Are you sure you want to buy this item now?"
+            />
         </div>
     );
 };
