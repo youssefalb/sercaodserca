@@ -22,13 +22,32 @@ const CustomSlider: React.FC<CustomSliderProps> = ({ children }) => {
     };
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            if (sliderRef.current) {
-                sliderRef.current.slickGoTo(0);
+        // Function to check the window size and set the slider to a specific slide
+        const checkWindowSizeAndSetSlide = () => {
+            // Only apply the effect if the window width is less than or equal to 600px
+            if (window.innerWidth <= 600) {
+                const timeout = setTimeout(() => {
+                    if (sliderRef.current) {
+                        sliderRef.current.slickGoTo(0); // Go to slide index 3
+                    }
+                }, 1000); // Adjust time as necessary
+
+                // Return a cleanup function to clear the timeout
+                return () => clearTimeout(timeout);
             }
-        }, 1000); // Adjust time as necessary
-        return () => clearTimeout(timeout);
-    }, [sliderRef.current]);
+        };
+
+        // Initial check
+        checkWindowSizeAndSetSlide();
+
+        // Set up the event listener for window resize
+        window.addEventListener('resize', checkWindowSizeAndSetSlide);
+
+        // Clean up the event listener when the component unmounts
+        return () => {
+            window.removeEventListener('resize', checkWindowSizeAndSetSlide);
+        };
+    }, []);
 
     const settings: Settings = {
         dots: true,

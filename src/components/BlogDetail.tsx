@@ -16,7 +16,7 @@ interface BlogPost {
 
 const createMarkup = (htmlContent: string) => {
     return {
-        __html: DOMPurify.sanitize(htmlContent) // DOMPurify is used to sanitize the HTML content
+        __html: DOMPurify.sanitize(htmlContent)
     };
 };
 
