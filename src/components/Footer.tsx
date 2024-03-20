@@ -41,14 +41,23 @@ const Footer = () => {
                 <div ref={leftColumnRef} className="flex flex-col mb-8 lg:mb-0">
                     <h3 className="font-bold text-lg mb-2">Charity Fund</h3>
                     <p className="mb-4 text-gray-300">Serca od Serca</p>
-                    <a href="mailto:fundacjaopomocy2022@gmail.com" className="mb-4 text-gray-300 flex items-center">
-                        <EmailIcon className="w-6 h-6 mr-2" />
-                        <span>fundacjaopomocy2022@gmail.com</span>
+                    <div className="mb-4 text-gray-300 flex">
+                        <div className="flex-shrink-0"> {/* Keep the icon from shrinking */}
+                            <EmailIcon className="w-6 h-6" />
+                        </div>
+                        <div className="flex-grow ml-2"> {/* Ensure space between icon and text, allow text to wrap */}
+                            <a href="mailto:fundacjaopomocy2022@gmail.com" className="block text-sm sm:inline break-words">
+                                fundacjaopomocy2022@gmail.com
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <a href="tel:+48880468972" className="mb-4 text-gray-300 flex items-center space-x-2">
+                        <PhoneIcon className="w-6 h-6 flex-shrink-0" />
+                        <span className="text-sm sm:text-base">+48 880 468 972</span>
                     </a>
-                    <a href="tel:+48880468972" className="mb-4 text-gray-300 flex items-center">
-                        <PhoneIcon className="w-6 h-6 mr-2" />
-                        <span>+48 880 468 972</span>
-                    </a>
+
                     <p className="text-gray-300">REGON: 522639821 NIP: 6132706316 </p>
                     <p className="text-gray-300">KRS: 0000983816</p>
                 </div>
