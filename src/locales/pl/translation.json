@@ -1,0 +1,137 @@
+{
+    "navbar": {
+      "about": "O nas",
+      "partners": "Partnerzy",
+      "helpArmy": "Pomoc dla armii",
+      "auctions": "Aukcje",
+      "helpRefugees": "Pomoc dla uchodźców",
+      "news": "Aktualności",
+      "login": "Logowanie",
+      "register": "Rejestracja",
+      "logout": "Wyloguj się"
+    },
+    "login": {
+      "title": "Logowanie",
+      "instruction": "Proszę wprowadzić swoje dane logowania.",
+      "email": "Email:",
+      "password": "Hasło:",
+      "logInButton": "Zaloguj się",
+      "registerPrompt": "Nie masz konta?"
+    },
+    "register": {
+      "title": "Rejestracja",
+      "instruction": "Proszę wprowadzić swoje dane, aby utworzyć konto.",
+      "email": "Email:",
+      "password": "Hasło:",
+      "confirmPassword": "Potwierdź hasło:",
+      "registerButton": "Zarejestruj się",
+      "loginPrompt": "Masz już konto?"
+    },
+    "hero": {
+      "foundation": "Fundacja Charytatywna \"Od Serca do Serca\"",
+      "slogan": "Z Ukrainą w sercu",
+      "makePledge": "Złóż deklarację",
+      "learnMore": "Dowiedz się więcej"
+    },
+    "about": {
+      "title": "O Funduszu",
+      "description": "Misją funduszu jest zapewnienie pomocy finansowej i niefinansowej Ukrainie; w tym wsparcie dla rodzin i osób w trudnych sytuacjach życiowych"
+    },
+    "partners": {
+      "title": "Partnerzy",
+      "becomePartner": "Zostań partnerem"
+    },
+    "supportArmy": {
+      "title": "Wsparcie dla Armii",
+      "description": "Dołącz do wysiłku mającego na celu wzmocnienie Sił Zbrojnych Ukrainy, jak również pomoc cywilnej populacji dotkniętej przez rosyjską agresję",
+      "makeContribution": "Przekaż darowiznę"
+    },
+    "auctions": {
+      "title": "Aukcje",
+      "addItem": "Dodaj przedmiot aukcyjny",
+      "startingPrice": "Cena wywoławcza: ",
+      "ends": "Koniec: ",
+      "learnMore": "Dowiedz się więcej",
+      "edit": "Edytuj",
+      "delete": "Usuń"
+    },
+    "auctionDetails": {
+      "endDate": "Data zakończenia: ",
+      "timeRemaining": "Pozostały czas: ",
+      "currentBid": "Aktualna oferta: ",
+      "buyNowPrice": "Cena Kup Teraz: ",
+      "buyNow": "Kup teraz",
+      "enterBid": "Wprowadź ofertę",
+      "placeBid": "Złóż ofertę"
+    },
+    "addAuctionItem": {
+      "title": "Dodaj przedmiot aukcyjny",
+      "fields": {
+        "title": "Tytuł:",
+        "description": "Opis:",
+        "imageUrl": "URL obrazu:",
+        "startingPrice": "Cena wywoławcza (PLN):",
+        "buyNowPrice": "Cena Kup Teraz (PLN):",
+        "endOfAuction": "Koniec aukcji:"
+      },
+      "placeholders": {
+        "enterTitle": "Wpisz tytuł",
+        "enterDescription": "Wpisz opis",
+        "chooseFile": "Wybierz plik",
+        "fileNotSelected": "Nie wybrano pliku",
+        "enterStartingPrice": "Wprowadź cenę wywoławczą",
+        "enterBuyNowPrice": "Wprowadź cenę Kup Teraz",
+        "dateFormat": "dd.mm.rrrr --:--"
+      },
+      "buttons": {
+        "addAuctionItem": "Dodaj przedmiot"
+      }
+    },
+    "confirmPurchase": {
+      "title": "Potwierdzenie zakupu",
+      "message": "Czy jesteś pewien, że chcesz teraz kupić ten przedmiot?",
+      "cancel": "Anuluj",
+      "confirm": "Potwierdź"
+    },
+    "supportRefugees": {
+      "title": "Wsparcie dla Uchodźców",
+      "message": "Dołącz do naszych wysiłków, aby wesprzeć uchodźców, zapewniając im niezbędną pomoc i wsparcie w tych trudnych czasach",
+      "makeContribution": "Zrób wpłatę"
+    },
+    "blogs": {
+      "title": "Blogi",
+      "addBlogPost": "Dodaj wpis",
+      "readMore": "Czytaj więcej",
+      "edit": "Edytuj",
+      "delete": "Usuń"
+    },
+    "addBlogPost": {
+      "title": "Dodaj Wpis na Blog",
+      "fields": {
+        "title": "Tytuł:",
+        "content": "Treść:",
+        "imageUrl": "URL obrazu:",
+        "publishDate": "Data publikacji:"
+      },
+      "placeholders": {
+        "enterTitle": "Wpisz tytuł",
+        "chooseFile": "Wybierz plik",
+        "fileNotSelected": "Nie wybrano pliku",
+        "dateFormat": "dd.mm.rrrr"
+      },
+      "buttons": {
+        "addBlogPost": "Dodaj wpis na blog"
+      }
+    },
+    "footer": {
+      "charityFund": "Fundacja Charytatywna Serca od Serca",
+      "about": "O Funduszu",
+      "partners": "Partnerzy",
+      "armySupport": "Wsparcie Armii",
+      "auctions": "Aukcje",
+      "news": "Aktualności",
+      "rights": "© Serca od Serca. Wszelkie prawa zastrzeżone."
+    }
+  }
+  
+  

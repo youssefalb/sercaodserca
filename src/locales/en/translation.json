@@ -1,0 +1,135 @@
+{
+    "navbar": {
+        "about": "About",
+        "partners": "Partners",
+        "helpArmy": "Help army",
+        "auctions": "Auctions",
+        "helpRefugees": "Help refugees",
+        "news": "News",
+        "login": "Login",
+        "register": "Register",
+        "logout": "Logout"
+    },
+    "login": {
+        "title": "Login",
+        "instruction": "Please enter your login details.",
+        "email": "Email:",
+        "password": "Password:",
+        "logInButton": "Log In",
+        "registerPrompt": "Don't have an account?"
+    },
+    "register": {
+        "title": "Register",
+        "instruction": "Please enter your details to create an account.",
+        "email": "Email:",
+        "password": "Password:",
+        "confirmPassword": "Confirm Password:",
+        "registerButton": "Register",
+        "loginPrompt": "Already have an account?"
+    },
+    "hero": {
+        "foundation": "Charity foundation \"Od Serca do Serca\"",
+        "slogan": "With Ukraine in heart",
+        "makePledge": "Make pledge",
+        "learnMore": "Learn more"
+    },
+    "about": {
+        "title": "About the Fund",
+        "description": "The fund's mission is to provide financial and non-financial assistance to Ukraine; including support for families and individuals in difficult living situations"
+    },
+    "partners": {
+        "title": "Partners",
+        "becomePartner": "Become a Partner"
+    },
+    "supportArmy": {
+        "title": "Support the Army",
+        "description": "Join the effort to strengthen the Armed Forces of Ukraine, as well as to help the civilian population affected by Russian aggression",
+        "makeContribution": "Make a contribution"
+    },
+    "auctions": {
+        "title": "Auctions",
+        "addItem": "Add Auction Item",
+        "startingPrice": "Starting Price: ",
+        "ends": "Ends: ",
+        "learnMore": "Learn More",
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+    "auctionDetails": {
+        "endDate": "End date: ",
+        "timeRemaining": "Time Remaining: ",
+        "currentBid": "Current Bid: ",
+        "buyNowPrice": "Buy It Now Price: ",
+        "buyNow": "Buy Now",
+        "enterBid": "Enter bid",
+        "placeBid": "Place Bid"
+    },
+    "addAuctionItem": {
+        "title": "Add Auction Item",
+        "fields": {
+            "title": "Title:",
+            "description": "Description:",
+            "imageUrl": "Image URL:",
+            "startingPrice": "Starting Price (PLN):",
+            "buyNowPrice": "Buy Now Price (PLN):",
+            "endOfAuction": "End of Auction:"
+        },
+        "placeholders": {
+            "enterTitle": "Enter Title",
+            "enterDescription": "Enter Description",
+            "chooseFile": "Choose file",
+            "fileNotSelected": "No file chosen",
+            "enterStartingPrice": "Enter Starting Price",
+            "enterBuyNowPrice": "Enter Buy Now Price",
+            "dateFormat": "dd.mm.yyyy --:--"
+        },
+        "buttons": {
+            "addAuctionItem": "Add Auction Item"
+        }
+    },
+    "confirmPurchase": {
+        "title": "Confirm Purchase",
+        "message": "Are you sure you want to buy this item now?",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+    },
+    "supportRefugees": {
+        "title": "Support Refugees",
+        "message": "Join the effort to support refugees, providing them with essential aid and assistance in these challenging times",
+        "makeContribution": "Make a Contribution"
+    },
+    "blogs": {
+        "title": "Blogs",
+        "addBlogPost": "Add Blog Post",
+        "readMore": "Read More",
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+    "addBlogPost": {
+        "title": "Add Blog Post",
+        "fields": {
+            "title": "Title:",
+            "content": "Content:",
+            "imageUrl": "Image URL:",
+            "publishDate": "Publish Date:"
+        },
+        "placeholders": {
+            "enterTitle": "Enter Title",
+            "chooseFile": "Choose file",
+            "fileNotSelected": "No file chosen",
+            "dateFormat": "dd.mm.yyyy"
+        },
+        "buttons": {
+            "addBlogPost": "Add Blog Post"
+        }
+    },
+    "footer": {
+        "charityFund": "Charity Fund Serca od Serca",
+        "about": "About the Fund",
+        "partners": "Partners",
+        "armySupport": "Army Support",
+        "auctions": "Auctions",
+        "news": "News",
+        "rights": "© Serca od Serca. All rights reserved."
+    }
+}

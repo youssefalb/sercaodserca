@@ -1,0 +1,137 @@
+{
+    "navbar": {
+      "about": "Про нас",
+      "partners": "Партнери",
+      "helpArmy": "Допомога армії",
+      "auctions": "Аукціони",
+      "helpRefugees": "Допомога біженцям",
+      "news": "Новини",
+      "login": "Увійти",
+      "register": "Реєстрація",
+      "logout": "Вийти"
+    },
+    "login": {
+      "title": "Вхід",
+      "instruction": "Будь ласка, введіть ваші дані для входу.",
+      "email": "Електронна пошта:",
+      "password": "Пароль:",
+      "logInButton": "Увійти",
+      "registerPrompt": "Не маєте акаунту?"
+    },
+    "register": {
+      "title": "Реєстрація",
+      "instruction": "Будь ласка, введіть ваші дані для створення акаунту.",
+      "email": "Електронна пошта:",
+      "password": "Пароль:",
+      "confirmPassword": "Підтвердіть пароль:",
+      "registerButton": "Зареєструватися",
+      "loginPrompt": "Вже маєте акаунт?"
+    },
+    "hero": {
+      "foundation": "Благодійний фонд \"Від Серця до Серця\"",
+      "slogan": "З Україною в серці",
+      "makePledge": "Зробити внесок",
+      "learnMore": "Дізнатись більше"
+    },
+    "about": {
+      "title": "Про фонд",
+      "description": "Місія фонду полягає в наданні фінансової та нематеріальної допомоги Україні, включаючи підтримку сімей та осіб, які перебувають у складних життєвих обставинах"
+    },
+    "partners": {
+      "title": "Партнери",
+      "becomePartner": "Стати партнером"
+    },
+    "supportArmy": {
+      "title": "Підтримка Армії",
+      "description": "Приєднуйтеся до зусиль по зміцненню Збройних Сил України, а також допомагайте цивільному населенню, постраждалому від російської агресії",
+      "makeContribution": "Зробити внесок"
+    },
+    "auctions": {
+      "title": "Аукціони",
+      "addItem": "Додати лот",
+      "startingPrice": "Початкова ціна: ",
+      "ends": "Закінчується: ",
+      "learnMore": "Дізнатись більше",
+      "edit": "Редагувати",
+      "delete": "Видалити"
+    },
+    "auctionDetails": {
+      "endDate": "Дата закінчення: ",
+      "timeRemaining": "Час, що залишився: ",
+      "currentBid": "Поточна ставка: ",
+      "buyNowPrice": "Ціна купівлі зараз: ",
+      "buyNow": "Купити зараз",
+      "enterBid": "Введіть ставку",
+      "placeBid": "Зробити ставку"
+    },
+    "addAuctionItem": {
+      "title": "Додати лот аукціону",
+      "fields": {
+        "title": "Назва:",
+        "description": "Опис:",
+        "imageUrl": "URL зображення:",
+        "startingPrice": "Початкова Ціна (PLN):",
+        "buyNowPrice": "Ціна Купіть Зараз (PLN):",
+        "endOfAuction": "Кінець аукціону:"
+      },
+      "placeholders": {
+        "enterTitle": "Введіть назву",
+        "enterDescription": "Введіть опис",
+        "chooseFile": "Виберіть файл",
+        "fileNotSelected": "Файл не вибрано",
+        "enterStartingPrice": "Введіть початкову ціну",
+        "enterBuyNowPrice": "Введіть ціну купівлі зараз",
+        "dateFormat": "дд.мм.рррр --:--"
+      },
+      "buttons": {
+        "addAuctionItem": "Додати лот"
+      }
+    },
+    "confirmPurchase": {
+      "title": "Підтвердження покупки",
+      "message": "Ви впевнені, що хочете купити цей товар зараз?",
+      "cancel": "Скасувати",
+      "confirm": "Підтвердити"
+    },
+    "supportRefugees": {
+      "title": "Підтримка біженців",
+      "message": "Долучайтеся до наших зусиль з підтримки біженців, надаючи їм необхідну допомогу та підтримку у ці складні часи",
+      "makeContribution": "Зробити внесок"
+    },
+    "blogs": {
+      "title": "Блоги",
+      "addBlogPost": "Додати запис у блог",
+      "readMore": "Читати більше",
+      "edit": "Редагувати",
+      "delete": "Видалити"
+    },
+    "addBlogPost": {
+      "title": "Додати пост у блог",
+      "fields": {
+        "title": "Назва:",
+        "content": "Контент:",
+        "imageUrl": "URL зображення:",
+        "publishDate": "Дата публікації:"
+      },
+      "placeholders": {
+        "enterTitle": "Введіть назву",
+        "chooseFile": "Виберіть файл",
+        "fileNotSelected": "Файл не вибрано",
+        "dateFormat": "дд.мм.рррр"
+      },
+      "buttons": {
+        "addBlogPost": "Додати пост"
+      }
+    },
+    "footer": {
+      "charityFund": "Благодійний фонд \"Серця від Серця\"",
+      "about": "Про фонд",
+      "partners": "Партнери",
+      "armySupport": "Підтримка армії",
+      "auctions": "Аукціони",
+      "news": "Новини",
+      "rights": "© Всі права захищені."
+    }
+  }
+  
+  
