@@ -13,32 +13,32 @@ const Footer = () => {
 
     const { t } = useTranslation();
 
-    useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
+    // useEffect(() => {
+    //     gsap.registerPlugin(ScrollTrigger);
 
-        const elements = [
-            { ref: leftColumnRef.current, x: '-100%', opacity: 0 },
-            { ref: middleColumnRef.current, x: '100%', opacity: 0 },
-            { ref: bottomRowRef.current, y: '50%', opacity: 0 }
-        ];
+    //     const elements = [
+    //         { ref: leftColumnRef.current, x: '-100%', opacity: 0 },
+    //         { ref: middleColumnRef.current, x: '100%', opacity: 0 },
+    //         { ref: bottomRowRef.current, y: '50%', opacity: 0 }
+    //     ];
 
-        elements.forEach(({ ref, x = 0, y = 0, opacity }) => {
-            if (ref) {
-                gsap.fromTo(ref, { x, y, autoAlpha: opacity }, {
-                    x: 0,
-                    y: 0,
-                    autoAlpha: 1,
-                    duration: 1.5,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: ref,
-                        start: "top bottom+=50",
-                        toggleActions: "play none none none",
-                    }
-                });
-            }
-        });
-    }, []);
+    //     elements.forEach(({ ref, x = 0, y = 0, opacity }) => {
+    //         if (ref) {
+    //             gsap.fromTo(ref, { x, y, autoAlpha: opacity }, {
+    //                 x: 0,
+    //                 y: 0,
+    //                 autoAlpha: 1,
+    //                 duration: 1.5,
+    //                 ease: 'power3.out',
+    //                 scrollTrigger: {
+    //                     trigger: ref,
+    //                     start: "top bottom+=50",
+    //                     toggleActions: "play none none none",
+    //                 }
+    //             });
+    //         }
+    //     });
+    // }, []);
 
     return (
         <footer className="mt-auto bg-blue text-white p-10 rounded-t-xl">
