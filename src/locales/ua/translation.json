@@ -29,7 +29,8 @@
     },
     "hero": {
       "foundation": "Благодійний фонд \"Від Серця до Серця\"",
-      "slogan": "З Україною в серці",
+      "slogan": "З Україною",
+      "slogan1": "в серці",
       "makePledge": "Зробити внесок",
       "learnMore": "Дізнатись більше"
     },
@@ -84,7 +85,8 @@
         "dateFormat": "дд.мм.рррр --:--"
       },
       "buttons": {
-        "addAuctionItem": "Додати лот"
+        "addAuctionItem": "Додати лот",
+        "editAuctionItem": "Додати лот"
       }
     },
     "confirmPurchase": {
@@ -124,14 +126,25 @@
       }
     },
     "footer": {
-      "charityFund": "Благодійний фонд \"Серця від Серця\"",
+      "charityFund": "Благодійний фонд \"Від Серця до Серця\"",
       "about": "Про фонд",
       "partners": "Партнери",
       "armySupport": "Підтримка армії",
       "auctions": "Аукціони",
       "news": "Новини",
       "rights": "© Всі права захищені."
-    }
+    },
+    "payments": {
+      "title": "Підтримати справу",
+      "oneTimeContribution": "Зробити внесок",
+      "enterYourAmount": "Введіть суму",
+      "makeAContribution": "Зробити внесок",
+      "bankAccountDetails": "Деталі рахунку",
+      "clientNumber": "Номер клієнта:",
+      "bank": "Банк:",
+      "swiftCode": "SWIFT код:",
+      "iban": "Рахунок в польських злотих IBAN:"
+  }
   }
   
   

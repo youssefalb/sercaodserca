@@ -5,8 +5,10 @@ import { db, storage } from './firebase-config'; // Path to your Firebase config
 import { isAdminUser } from './utils/AuthUtils';
 import { useAuth } from './AuthContext';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const AddOrEditAuctionItem: React.FC = () => {
+    const { t } = useTranslation();
     const { auctionId } = useParams<{ auctionId: string }>(); // Assuming you're using React Router v6
     const navigate = useNavigate();
     const { currentUser } = useAuth();
@@ -99,32 +101,32 @@ const AddOrEditAuctionItem: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-8 mt-10 rounded-lg shadow">
-            <h2 className="text-2xl font-bold mb-6 text-center">{isEditMode ? 'Edit Auction Item' : 'Add Auction Item'}</h2>
+            <h2 className="text-2xl font-bold mb-6 text-center">{isEditMode ? t('addAuctionItem.buttons.editAuctionItem') : t('addAuctionItem.buttons.addAuctionItem')}</h2>
             <div className="mb-4">
-                <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">Title:</label>
+                <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">{t('addAuctionItem.fields.title')}</label>
                 <input
                     type="text"
                     id="title"
                     value={title}
                     onChange={e => setTitle(e.target.value)}
-                    placeholder="Enter Title"
+                    placeholder= {t('addAuctionItem.placeholders.enterTitle')}
                     required
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
             </div>
             <div className="mb-4">
-                <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+                <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">{t('addAuctionItem.fields.description')}</label>
                 <textarea
                     id="description"
                     value={description}
                     onChange={e => setDescription(e.target.value)}
-                    placeholder="Enter Description"
+                    placeholder= {t('addAuctionItem.placeholders.enterDescription')}
                     required
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 ></textarea>
             </div>
             <div className="mb-4">
-                <label htmlFor="image" className="block text-gray-700 text-sm font-bold mb-2">Image URL:</label>
+                <label htmlFor="image" className="block text-gray-700 text-sm font-bold mb-2">{t('addAuctionItem.fields.imageUrl')}</label>
                 <input
                     type="file"
                     id="image"
@@ -133,31 +135,31 @@ const AddOrEditAuctionItem: React.FC = () => {
                 />
             </div>
             <div className="mb-4">
-                <label htmlFor="startPrice" className="block text-gray-700 text-sm font-bold mb-2">Starting Price ($):</label>
+                <label htmlFor="startPrice" className="block text-gray-700 text-sm font-bold mb-2">{t('addAuctionItem.fields.startingPrice')}</label>
                 <input
                     type="number"
                     id="startPrice"
                     value={startPrice}
                     onChange={e => setStartPrice(e.target.value)}
-                    placeholder="Enter Starting Price"
+                    placeholder= {t('addAuctionItem.placeholders.enterStartingPrice')}
                     required
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
             </div>
             <div className="mb-4">
-                <label htmlFor="buyNowPrice" className="block text-gray-700 text-sm font-bold mb-2">Buy Now Price ($):</label>
+                <label htmlFor="buyNowPrice" className="block text-gray-700 text-sm font-bold mb-2">{t('addAuctionItem.fields.buyNowPrice')}</label>
                 <input
                     type="number"
                     id="buyNowPrice"
                     value={buyNowPrice}
                     onChange={e => setBuyNowPrice(e.target.value)}
-                    placeholder="Enter Buy Now Price"
+                    placeholder= {t('addAuctionItem.placeholders.enterBuyNowPrice')}
                     required
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
             </div>
             <div className="mb-6">
-                <label htmlFor="endOfAuction" className="block text-gray-700 text-sm font-bold mb-2">End of Auction:</label>
+                <label htmlFor="endOfAuction" className="block text-gray-700 text-sm font-bold mb-2">{t('addAuctionItem.fields.endOfAuction')}</label>
                 <input
                     type="datetime-local"
                     id="endOfAuction"
@@ -168,7 +170,7 @@ const AddOrEditAuctionItem: React.FC = () => {
                 />
             </div>
             <button type="submit" className="bg-purple hover:bg-purple text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">
-                {isEditMode ? 'Update Auction Item' : 'Add Auction Item'}
+                {isEditMode ? t('addAuctionItem.buttons.editAuctionItem') : t('addAuctionItem.buttons.addAuctionItem')}
             </button>
         </form>
     );

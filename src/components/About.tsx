@@ -1,16 +1,19 @@
 import React from 'react';
 import { ReactComponent as EmailIcon } from '../assets/icons/email.svg';
 import { ReactComponent as PhoneIcon } from '../assets/icons/phone.svg';
+import { useTranslation } from 'react-i18next';
 
 const About = () => {
+    const { t } = useTranslation();
+
     return (
         <section id="about" className="max-w-6xl mx-auto bg-white pt-28 pb-28 px-8 sm:px-6 lg:px-8 relative  overflow-hidden flex flex-col md:flex-row-reverse">
 
             {/* Text Section */}
             <div className="w-full md:w-3/4 p-8">
-                <h2 className="text-2xl font-semibold mb-6 text-center md:text-left">About the Fund</h2>
+                <h2 className="text-2xl font-semibold mb-6 text-center md:text-left">{t('about.title')}</h2>
                 <p className="mb-4 text-center md:text-left">
-                    The fund's mission is to provide financial and non-financial assistance to Ukraine; including support for families and individuals in difficult living situations
+                {t('about.description')}
                 </p>
 
                 <div className="space-y-2 mb-6 text-center md:text-left">

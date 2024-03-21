@@ -4,6 +4,7 @@ import { useAuth } from '../AuthContext'; // Adjust the path as necessary
 import { isAdminUser } from '../utils/AuthUtils'; // Adjust the path as necessary
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase-config'; // Adjust the path as necessary
+import { useTranslation } from 'react-i18next';
 
 interface BlogCardProps {
     id: string;
@@ -17,6 +18,7 @@ interface BlogCardProps {
 const BlogCard: React.FC<BlogCardProps> = ({ id, image, title, description, datePublished, onDelete }) => {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const handleDelete = async () => {
         if (window.confirm('Are you sure you want to delete this auction item?')) {
@@ -38,12 +40,12 @@ const BlogCard: React.FC<BlogCardProps> = ({ id, image, title, description, date
             <p className="text-gray-600 mt-2">{description}</p>
             <p className="text-gray-500 text-sm mt-2">{datePublished}</p>
             <Link to={`/blog/${id}`} className="lg:block text-white bg-purple px-4 py-2 rounded-md m-6 hover:bg-gray-500">
-                Read More
+            {t('blogs.readMore')}
             </Link>
             {isAdminUser(currentUser) && (
                 <div className="space-x-2">
-                    <button onClick={handleEdit} className="text-white bg-black px-3 py-2 rounded-md hover:bg-blue-700">Edit</button>
-                    <button onClick={handleDelete} className="text-white bg-red-500 px-3 py-2 rounded-md hover:bg-red-700">Delete</button>
+                    <button onClick={handleEdit} className="text-white bg-black px-3 py-2 rounded-md hover:bg-blue-700">{t('blogs.edit')}</button>
+                    <button onClick={handleDelete} className="text-white bg-red-500 px-3 py-2 rounded-md hover:bg-red-700">{t('blogs.delete')}</button>
                 </div>
             )}
         </div>

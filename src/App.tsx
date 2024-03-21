@@ -5,6 +5,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import './App.css';
 import rightSideImg from './assets/images/army.png';
 import rightSideImgTwo from './assets/images/refugees.png';
+import './i18n';
+import { useTranslation } from 'react-i18next';
 
 import NavBar from './components/Navbar';
 import HeroSection from './components/Hero';
@@ -30,6 +32,8 @@ import PaymentFailure from './components/PaymentFailure';
 const stripePromise = loadStripe('pk_test_51OuzPy014et4YmUMZXuPzFi7jzWRz709qgoFrFJsxaoPKz9BoMYQ881UCOP6e7KT0Xp895Lo88RzJKYLxgaJRERI00Td3l8onn');
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -42,17 +46,17 @@ export default function App() {
                 <About />
                 <Partners />
                 <SupportCard
-                  title="Support the Army"
-                  description="Join the effort to strengthen the Armed Forces of Ukraine, as well as to help the civilian population affected by Russian aggression"
-                  buttonText="Make a contribution"
+                  title={t('supportArmy.title')}
+                  description={t('supportArmy.description')}
+                  buttonText={t('supportArmy.makeContribution')}
                   rightImageUrl={rightSideImg}
                   id="help-army"
                 />
                 <AuctionsSection />
                 <SupportCard
-                  title="Support Refugees"
-                  description="Join the effort to support refugees, providing them with essential aid and assistance in these challenging times"
-                  buttonText="Make a Contribution"
+                  title={t('supportRefugees.title')}
+                  description={t('supportRefugees.message')}
+                  buttonText={t('supportRefugees.makeContribution')}
                   rightImageUrl={rightSideImgTwo}
                   id="help-refugees"
                 />

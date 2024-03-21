@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 // Dummy partner data - replace with real data
 const partners = [
@@ -21,12 +22,13 @@ const partners = [
 ];
 
 const Partners = () => {
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
 
     return (
         <section id="partners" className="bg-gray-100 pt-10 pb-5 px-8 sm:px-6 lg:px-8 relative ">
-            <h2 className="text-3xl font-semibold mb-6 mt-6 text-center">Partners</h2>
+            <h2 className="text-3xl font-semibold mb-6 mt-6 text-center">{t('partners.title')}</h2>
             <div className="flex flex-wrap justify-center items-center">
                 {partners.map(partner => (
                     <a key={partner.id} href={partner.website} target="_blank" rel="noopener noreferrer" className="border border-gray-300 rounded-lg overflow-hidden m-2 shadow-sm hover:shadow-xl transition-shadow duration-300 ease-in-out">
@@ -40,7 +42,7 @@ const Partners = () => {
                     className="text-white bg-purple px-4 py-2 mb-10 rounded-md hover:bg-gray-500"
                     onClick={() => navigate('/payment')}
                 >
-                    Become a Partner
+                    {t('partners.becomePartner')}
                 </button>
             </div>
         </section>

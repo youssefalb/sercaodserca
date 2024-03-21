@@ -9,6 +9,7 @@ import { User } from 'firebase/auth';
 import { useAuth } from '../AuthContext';
 import { time } from 'console';
 import ConfirmationModal from './ConfirmationModal';
+import { useTranslation } from 'react-i18next';
 
 interface AuctionItem {
     id: string;
@@ -33,6 +34,7 @@ const AuctionDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     // console.log(id);
     const { currentUser } = useAuth();
+    const { t } = useTranslation();
     // console.log(currentUser?.uid);
     const [auctionItem, setAuctionItem] = useState<AuctionItem | null>(null);
     const [liveTimeRemaining, setLiveTimeRemaining] = useState<string>("");
@@ -198,16 +200,16 @@ const AuctionDetail: React.FC = () => {
                 <div className="mt-4">
                     <div className="flex flex-col justify-between items-center">
                         <span className="flex items-center text-sm text-gray-500">
-                            <FontAwesomeIcon icon={faClock} className="mr-2" />End date: {auctionEndDate}
+                            <FontAwesomeIcon icon={faClock} className="mr-2" />{t('auctionDetails.endDate')} {auctionEndDate}
                         </span>
                         <span className="flex items-center text-sm text-gray-500">
-                            <FontAwesomeIcon icon={faGavel} className="mr-2" />Time Remaining: {liveTimeRemaining}
+                            <FontAwesomeIcon icon={faGavel} className="mr-2" />{t('auctionDetails.timeRemaining')} {liveTimeRemaining}
                         </span>
                     </div>
                     <div className="mt-4">
                         <div className="flex flex-col justify-between items-center">
                             <span className="flex items-center text-lg font-medium text-gray-900">
-                                <FontAwesomeIcon icon={faGavel} className="mr-2" />Current Bid: {auctionItem.currentHighestBid} PLN
+                                <FontAwesomeIcon icon={faGavel} className="mr-2" />{t('auctionDetails.currentBid')} {auctionItem.currentHighestBid} PLN
                             </span>
                             {auctionItem.currentHighestBidderEmail && (
                                 <span className="flex items-center text-sm text-gray-500">
@@ -221,13 +223,13 @@ const AuctionDetail: React.FC = () => {
                                     <div className="text-center">
                                         <div className="text-gray-500 mb-2">
                                             <FontAwesomeIcon icon={faMoneyBillWave} className="mr-2" />
-                                            Buy It Now Price: {auctionItem.buyNowPrice} PLN
+                                            {t('auctionDetails.buyNowPrice')} {auctionItem.buyNowPrice} zł
                                         </div>
                                         <button
                                             onClick={handleBuyNowClick}
                                             className="bg-purple hover:bg-blue-600 text-white font-bold py-2 px-4 rounded my-6 md:mt-0 w-full md:w-auto"
                                         >
-                                            Buy Now
+                                            {t('auctionDetails.buyNow')}
                                         </button>
                                     </div>
                                 </div>
@@ -238,17 +240,17 @@ const AuctionDetail: React.FC = () => {
                                             value={bidAmount}
                                             onChange={(e) => setBidAmount(e.target.value)}
                                             className="py-2 px-4 w-full"
-                                            placeholder="Enter bid"
+                                            placeholder= {t('auctionDetails.enterBid')}
                                             min="1"
                                         />
-                                        <span className="bg-gray-200 py-2 px-4">PLN</span>
+                                        <span className="bg-gray-200 py-2 px-4">zł</span>
                                     </div>
                                     <button
                                         type="submit"
                                         onClick={handlePlaceBidClick}
                                         className="bg-purple hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full sm:w-auto mt-4 sm:mt-0"
                                     >
-                                        Place Bid
+                                        {t('auctionDetails.placeBid')}
                                     </button>
                                 </div>
                             </div>

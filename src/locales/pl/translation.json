@@ -29,7 +29,8 @@
     },
     "hero": {
       "foundation": "Fundacja Charytatywna \"Od Serca do Serca\"",
-      "slogan": "Z Ukrainą w sercu",
+      "slogan": "Z Ukrainą",
+      "slogan1": "w sercu",
       "makePledge": "Złóż deklarację",
       "learnMore": "Dowiedz się więcej"
     },
@@ -84,7 +85,8 @@
         "dateFormat": "dd.mm.rrrr --:--"
       },
       "buttons": {
-        "addAuctionItem": "Dodaj przedmiot"
+        "addAuctionItem": "Dodaj przedmiot",
+        "editAuctionItem": "Zmień przedmiot"
       }
     },
     "confirmPurchase": {
@@ -131,7 +133,19 @@
       "auctions": "Aukcje",
       "news": "Aktualności",
       "rights": "© Serca od Serca. Wszelkie prawa zastrzeżone."
+    },
+    "payments": {
+      "title": "Wesprzyj sprawę",
+      "oneTimeContribution": "Zrób wpłatę",
+      "enterYourAmount": "Wprowadź kwotę",
+      "makeAContribution": "Zrób wpłatę",
+      "bankAccountDetails": "Szczegóły konta bankowego",
+      "clientNumber": "Numer klienta:",
+      "bank": "Bank:",
+      "swiftCode": "Kod SWIFT:",
+      "iban": "Konto w polskich złotych IBAN:"
     }
+    
   }
   
   

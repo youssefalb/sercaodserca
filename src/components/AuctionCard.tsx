@@ -4,6 +4,7 @@ import { useAuth } from '../AuthContext'; // Adjust the path as necessary
 import { isAdminUser } from '../utils/AuthUtils'; // Adjust the path as necessary
 import { collection, getDocs, deleteDoc, doc, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase-config'; // Adjust the path as necessary
+import { useTranslation } from 'react-i18next';
 
 interface AuctionCardProps {
     id: string;
@@ -15,6 +16,9 @@ interface AuctionCardProps {
 }
 
 const AuctionCard: React.FC<AuctionCardProps> = ({ id, image, title, startPrice, endOfAuction, onDelete }) => {
+    
+    const { t } = useTranslation();
+
     const { currentUser } = useAuth();
     const navigate = useNavigate();
 
@@ -49,16 +53,16 @@ const AuctionCard: React.FC<AuctionCardProps> = ({ id, image, title, startPrice,
             <div className=" mb-4">
                 <img src={image} alt="Auction Item" className="object-cover h-48 w-60" />
             </div>
-            <h5>{title}</h5>
-            <p>Starting Price: ${startPrice}</p>
-            <p>Ends: {formatDate(endOfAuction)}</p>
+            <h5 className='font-bold'>{title}</h5>
+            <p>{t('auctions.startingPrice')} {startPrice} zł</p>
+            <p>{t('auctions.ends')} {formatDate(endOfAuction)} zł</p>
             <Link to={`/auction/${id}`} className="text-white bg-purple px-4 py-2 rounded-md m-6 hover:bg-gray-500">
-                Learn More
+            {t('auctions.learnMore')}
             </Link>
             {isAdminUser(currentUser) && (
                 <div className="space-x-2">
-                    <button onClick={handleEdit} className="text-white bg-black px-3 py-2 rounded-md hover:bg-blue-700">Edit</button>
-                    <button onClick={handleDelete} className="text-white bg-red-500 px-3 py-2 rounded-md hover:bg-red-700">Delete</button>
+                    <button onClick={handleEdit} className="text-white bg-black px-3 py-2 rounded-md hover:bg-blue-700">{t('auctions.edit')}</button>
+                    <button onClick={handleDelete} className="text-white bg-red-500 px-3 py-2 rounded-md hover:bg-red-700">{t('auctions.delete')}</button>
                 </div>
             )}
         </div>

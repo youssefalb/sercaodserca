@@ -29,7 +29,8 @@
     },
     "hero": {
         "foundation": "Charity foundation \"Od Serca do Serca\"",
-        "slogan": "With Ukraine in heart",
+        "slogan": "With Ukraine",
+        "slogan1": "in heart",
         "makePledge": "Make pledge",
         "learnMore": "Learn more"
     },
@@ -84,7 +85,8 @@
             "dateFormat": "dd.mm.yyyy --:--"
         },
         "buttons": {
-            "addAuctionItem": "Add Auction Item"
+            "addAuctionItem": "Add Auction Item",
+            "editAuctionItem": "Edit Item"
         }
     },
     "confirmPurchase": {
@@ -131,5 +133,17 @@
         "auctions": "Auctions",
         "news": "News",
         "rights": "© Serca od Serca. All rights reserved."
-    }
+    },
+    "payments": {
+        "title": "Support the Cause",
+        "oneTimeContribution": "Make a Contribution",
+        "enterYourAmount": "Enter Your Amount",
+        "makeAContribution": "Make a Contribution",
+        "bankAccountDetails": "Bank Account Details",
+        "clientNumber": "Client Number:",
+        "bank": "Bank:",
+        "swiftCode": "SWIFT Code:",
+        "iban": "Account in Polish Zloty IBAN:"
+      }
+      
 }

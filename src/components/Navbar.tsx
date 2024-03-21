@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { User } from 'firebase/auth';
 import { useAuth } from '../AuthContext'; // Adjust the path as necessary
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 import logo from '../assets/images/logo.svg';
@@ -12,6 +13,7 @@ import logo from '../assets/images/logo.svg';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Navbar() {
+    const { t } = useTranslation();
     const { login, signup, logout, currentUser } = useAuth(); // Destructure the needed functions and state
     const navigate = useNavigate();
 
@@ -27,12 +29,12 @@ export default function Navbar() {
     const [email, setEmail] = useState(''); // Add state for email
     const [password, setPassword] = useState(''); // Add state for password
     const navItems = [
-        { id: 'about', name: 'About' },
-        { id: 'partners', name: 'Partners' },
-        { id: 'help-army', name: 'Help army' },
-        { id: 'auctions', name: 'Auctions' },
-        { id: 'help-refugees', name: 'Help refugees' },
-        { id: 'news', name: 'News' },
+        { id: 'about', name: t('navbar.about') },
+        { id: 'partners', name: t('navbar.partners') },
+        { id: 'help-army', name: t('navbar.helpArmy') },
+        { id: 'auctions', name: t('navbar.auctions') },
+        { id: 'help-refugees', name: t('navbar.helpRefugees') },
+        { id: 'news', name: t('navbar.news') },
     ];
 
     const handleNavLinkClick = async (id: string) => {
@@ -125,7 +127,7 @@ export default function Navbar() {
                             }
                         }}
                     >
-                        Logout
+                        {t('navbar.logout')}
                     </button>
                 ) : (
                     <>
@@ -134,14 +136,14 @@ export default function Navbar() {
                             onClick={() => handleNavLinkClick('login')}
                             ref={loginBtnRef}
                         >
-                            Login
+                            {t('navbar.login')}
                         </button>
                         <button
                             className="hidden lg:block text-purple border-purple border-2 px-4 py-2 rounded-md ml-2 hover:bg-purple hover:text-white"
                             onClick={() => handleNavLinkClick('register')}
                             ref={registerBtnRef}
                         >
-                            Register
+                            {t('navbar.register')}
                         </button>
                     </>
                 )}
@@ -158,7 +160,7 @@ export default function Navbar() {
                             }
                         }}
                     >
-                        Logout
+                        {t('navbar.logout')}
                     </button>
                 ) : (
                     <div className='flex'>
@@ -167,14 +169,14 @@ export default function Navbar() {
                             onClick={() => handleNavLinkClick('login')}
                             ref={loginBtnRef}
                         >
-                            Login
+                            {t('navbar.login')}
                         </button>
                         <button
                             className="lg:hidden flex text-purple border-purple border-2 px-2 py-1 rounded-md ml-2 hover:bg-purple hover:text-white"
                             onClick={() => handleNavLinkClick('register')}
                             ref={registerBtnRef}
                         >
-                            Register
+                            {t('navbar.register')}
                         </button>
                     </div>
                 )}

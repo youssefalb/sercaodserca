@@ -3,10 +3,15 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { ReactComponent as EmailIcon } from '../assets/icons/email-white.svg';
 import { ReactComponent as PhoneIcon } from '../assets/icons/phone-white.svg';
+import { useTranslation } from 'react-i18next';
+
+
 const Footer = () => {
     const leftColumnRef = useRef(null);
     const middleColumnRef = useRef(null);
     const bottomRowRef = useRef(null); // Ref for the bottom row on desktop
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
@@ -39,8 +44,7 @@ const Footer = () => {
         <footer className="mt-auto bg-blue text-white p-10 rounded-t-xl">
             <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-12 gap-9 ">
                 <div ref={leftColumnRef} className="flex flex-col mb-8 lg:mb-0">
-                    <h3 className="font-bold text-lg mb-2">Charity Fund</h3>
-                    <p className="mb-4 text-gray-300">Serca od Serca</p>
+                    <h3 className="font-bold text-lg mb-2">{t('footer.charityFund')}</h3>
                     <div className="mb-4 text-gray-300 flex">
                         <div className="flex-shrink-0"> {/* Keep the icon from shrinking */}
                             <EmailIcon className="w-6 h-6" />
@@ -63,18 +67,18 @@ const Footer = () => {
                 </div>
                 <div ref={middleColumnRef} className="flex flex-row mb-8 lg:mb-0 lg:space-x-10 lg:col-span-1">
                     <div className="flex flex-col mb-4 w-full space-y-3">
-                        <a href="#about" className="text-gray-300 whitespace-nowrap">About the Fund</a>
-                        <a href="#partners" className="text-gray-300 whitespace-nowrap">Partners</a>
-                        <a href="#help-army" className="text-gray-300 whitespace-nowrap">Army Support</a>
+                        <a href="#about" className="text-gray-300 whitespace-nowrap">{t('footer.about')}</a>
+                        <a href="#partners" className="text-gray-300 whitespace-nowrap">{t('footer.partners')}</a>
+                        <a href="#help-army" className="text-gray-300 whitespace-nowrap">{t('footer.armySupport')}</a>
                     </div>
                     <div className="flex flex-col w-full space-y-3">
-                        <a href="#auctions" className="text-gray-300 whitespace-nowrap">Auctions</a>
-                        <a href="#news" className="text-gray-300 whitespace-nowrap">News</a>
+                        <a href="#auctions" className="text-gray-300 whitespace-nowrap">{t('footer.auctions')}</a>
+                        <a href="#news" className="text-gray-300 whitespace-nowrap">{t('footer.news')}</a>
                     </div>
                 </div>
 
                 <div ref={bottomRowRef} className="lg:col-span-3 mt-10">
-                    <h4 className="text-sm text-gray-300">@ Od Serca do Serca. All rights reserved.</h4>
+                    <h4 className="text-sm text-gray-300">{t('footer.rights')}</h4>
                 </div>
             </div>
         </footer>
