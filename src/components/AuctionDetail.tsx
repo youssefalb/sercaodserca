@@ -81,7 +81,9 @@ const AuctionDetail: React.FC = () => {
         } else if (action === Action.PlaceBid && currentUser && bidAmount) {
             const newBid = Number(bidAmount);
             const currentHighestBid = auctionItem?.currentHighestBid ?? 0;
-            if (newBid > currentHighestBid && auctionItem?.id) {
+            if (auctionItem?.buyNowPrice !== undefined && newBid >= auctionItem.buyNowPrice) {
+                alert(`Your bid meets or exceeds the Buy Now price of ${auctionItem.buyNowPrice} PLN. Consider using the Buy Now option instead.`);
+            } else if (newBid > currentHighestBid && auctionItem?.id) {
                 try {
                     const auctionRef = doc(db, "auctions", auctionItem.id);
                     await updateDoc(auctionRef, {
