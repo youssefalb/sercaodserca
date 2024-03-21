@@ -31,16 +31,23 @@ const BlogCard: React.FC<BlogCardProps> = ({ id, image, title, description, date
         navigate(`/edit-blog-post/${id}`); // Assuming you have this route set up for editing
     };
 
+
+    const truncateString = (str: string, maxLength: number) => {
+        if (str.length > maxLength) {
+            return str.substring(0, maxLength) + '...';
+        }
+        return str;
+    };
     return (
         <div className="border border-gray-300 bg-white rounded-2xl p-4 flex flex-col items-center max-w-sm">
             <div className="mb-4">
                 <img src={image} alt={title} className="object-cover h-48 w-60 rounded-t-lg" />
             </div>
-            <h5 className="text-lg font-bold">{title}</h5>
+            <h5 className="text-lg font-bold">{truncateString(title, 28)}</h5>
             <p className="text-gray-600 mt-2">{description}</p>
             <p className="text-gray-500 text-sm mt-2">{datePublished}</p>
             <Link to={`/blog/${id}`} className="lg:block text-white bg-purple px-4 py-2 rounded-md m-6 hover:bg-gray-500">
-            {t('blogs.readMore')}
+                {t('blogs.readMore')}
             </Link>
             {isAdminUser(currentUser) && (
                 <div className="space-x-2">

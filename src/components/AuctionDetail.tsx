@@ -45,7 +45,7 @@ const AuctionDetail: React.FC = () => {
     const [action, setAction] = useState<Action | null>(null); // New state to track the current action
 
     const handleBuyNowClick = () => {
-        setAction(Action.BuyNow); 
+        setAction(Action.BuyNow);
         setConfirmationModalOpen(true);
     };
 
@@ -178,13 +178,14 @@ const AuctionDetail: React.FC = () => {
         return null;
     }
 
- 
+
 
     if (!auctionItem) {
         return <div>Loading...</div>;
     }
     const auctionEndDate = auctionItem.endOfAuction ? auctionItem.endOfAuction.toDate().toLocaleString() : 'Not specified';
     const openImageModal = () => setImageModalOpen(true);
+
 
     // Function to close the modal
     const closeImageModal = () => setImageModalOpen(false);
@@ -240,7 +241,7 @@ const AuctionDetail: React.FC = () => {
                                             value={bidAmount}
                                             onChange={(e) => setBidAmount(e.target.value)}
                                             className="py-2 px-4 w-full"
-                                            placeholder= {t('auctionDetails.enterBid')}
+                                            placeholder={t('auctionDetails.enterBid')}
                                             min="1"
                                         />
                                         <span className="bg-gray-200 py-2 px-4">zł</span>
