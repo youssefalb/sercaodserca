@@ -25,7 +25,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: 'ua', // language to use, more commonly set during user preference detection
+    lng: 'en', // language to use, more commonly set during user preference detection
     keySeparator: '.', // we will use keys like hero.title to make it more managable
     interpolation: {
       escapeValue: false // react already safes from xss

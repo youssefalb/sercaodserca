@@ -45,7 +45,7 @@ const AuctionDetail: React.FC = () => {
     const [action, setAction] = useState<Action | null>(null); // New state to track the current action
 
     const handleBuyNowClick = () => {
-        setAction(Action.BuyNow); 
+        setAction(Action.BuyNow);
         setConfirmationModalOpen(true);
     };
 
@@ -81,7 +81,9 @@ const AuctionDetail: React.FC = () => {
         } else if (action === Action.PlaceBid && currentUser && bidAmount) {
             const newBid = Number(bidAmount);
             const currentHighestBid = auctionItem?.currentHighestBid ?? 0;
-            if (newBid > currentHighestBid && auctionItem?.id) {
+            if (auctionItem?.buyNowPrice !== undefined && newBid >= auctionItem.buyNowPrice) {
+                alert(`Your bid meets or exceeds the Buy Now price of ${auctionItem.buyNowPrice} PLN. Consider using the Buy Now option instead.`);
+            } else if (newBid > currentHighestBid && auctionItem?.id) {
                 try {
                     const auctionRef = doc(db, "auctions", auctionItem.id);
                     await updateDoc(auctionRef, {
@@ -178,13 +180,14 @@ const AuctionDetail: React.FC = () => {
         return null;
     }
 
- 
+
 
     if (!auctionItem) {
         return <div>Loading...</div>;
     }
     const auctionEndDate = auctionItem.endOfAuction ? auctionItem.endOfAuction.toDate().toLocaleString() : 'Not specified';
     const openImageModal = () => setImageModalOpen(true);
+
 
     // Function to close the modal
     const closeImageModal = () => setImageModalOpen(false);
@@ -240,7 +243,7 @@ const AuctionDetail: React.FC = () => {
                                             value={bidAmount}
                                             onChange={(e) => setBidAmount(e.target.value)}
                                             className="py-2 px-4 w-full"
-                                            placeholder= {t('auctionDetails.enterBid')}
+                                            placeholder={t('auctionDetails.enterBid')}
                                             min="1"
                                         />
                                         <span className="bg-gray-200 py-2 px-4">zł</span>
@@ -279,6 +282,10 @@ const AuctionDetail: React.FC = () => {
                 title={`Confirm ${action === Action.BuyNow ? 'Purchase' : 'Bid'}`}
                 message={`Are you sure you want to ${action === Action.BuyNow ? 'buy this item now' : 'place this bid'}?`}
             />
+            <hr className="my-4 border-t border-gray-300" />
+            <p className="text-red-500 text-xs m-10">
+                We'll email the auction winner within 24 hours after the auction ends. When you get this email, please reply quickly with your payment. Remember to include your name, address, email, and last name in your reply, along with the payment proof. We need this info to confirm you won and to sort everything out quickly. If you don't send all the details, there might be delays.
+            </p>
         </div>
     );
 };

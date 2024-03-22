@@ -16,7 +16,7 @@ interface AuctionCardProps {
 }
 
 const AuctionCard: React.FC<AuctionCardProps> = ({ id, image, title, startPrice, endOfAuction, onDelete }) => {
-    
+
     const { t } = useTranslation();
 
     const { currentUser } = useAuth();
@@ -48,16 +48,23 @@ const AuctionCard: React.FC<AuctionCardProps> = ({ id, image, title, startPrice,
         navigate(`/edit-auction/${id}`); // Assuming you have this route set up for editing
     };
 
+    const truncateString = (str: string, maxLength: number) => {
+        if (str.length > maxLength) {
+            return str.substring(0, maxLength) + '...';
+        }
+        return str;
+    };
+
     return (
         <div className="border border-gray-300 bg-white rounded-2xl p-4 flex flex-col items-center max-w-sm">
             <div className=" mb-4">
                 <img src={image} alt="Auction Item" className="object-cover h-48 w-60" />
             </div>
-            <h5 className='font-bold'>{title}</h5>
+            <h5 className='font-bold'>{truncateString(title, 28)}</h5>
             <p>{t('auctions.startingPrice')} {startPrice} zł</p>
             <p>{t('auctions.ends')} {formatDate(endOfAuction)} zł</p>
             <Link to={`/auction/${id}`} className="text-white bg-purple px-4 py-2 rounded-md m-6 hover:bg-gray-500">
-            {t('auctions.learnMore')}
+                {t('auctions.learnMore')}
             </Link>
             {isAdminUser(currentUser) && (
                 <div className="space-x-2">

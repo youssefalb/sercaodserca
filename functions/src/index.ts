@@ -91,7 +91,7 @@ exports.sendEmailOnAuctionEnd = functions.firestore
 
 
     // for now commneted out because we do not want a lot of calls to the function in development
-// exports.checkAndEndAuctions = functions.pubsub.schedule('every 1 minutes').onRun(async context => {
+// exports.checkAndEndAuctions = functions.pubsub.schedule('every 24 hours').onRun(async context => {
 //     const now = admin.firestore.Timestamp.now();
 //     const auctionsRef = admin.firestore().collection('auctions');
 //     console.log(`Checking for auctions that have ended before ${now.toDate()}`);
