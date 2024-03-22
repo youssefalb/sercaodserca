@@ -19,7 +19,7 @@ const About = () => {
                 <div className="space-y-2 mb-6 text-center md:text-left">
                     <p className="flex justify-center md:justify-start items-center text-purple font-bold">
                         <EmailIcon className="w-6 h-6 mr-2" />
-                        fundhelp2022@example.com
+                        fundacjapomocy2022@gmail.com
                     </p>
                     <p className="flex justify-center md:justify-start items-center text-purple font-bold">
                         <PhoneIcon className="w-6 h-6 mr-2 " />

@@ -36,7 +36,7 @@ export default function HeroSection() {
                     <p className="text-lg text-black mb-4">
                     {t('hero.foundation')}
                     </p>
-                    <h1 className="lg:text-7xl text-6xl font-bold text-gray-900 mb-6">{t('hero.slogan')}<br></br>{t('hero.slogan1')}</h1>
+                    <h1 className="lg:text-7xl text-5xl font-bold text-gray-900 mb-6">{t('hero.slogan')}<br></br>{t('hero.slogan1')}</h1>
 
                     <div className="flex justify-center md:justify-start space-x-4 mt-10">
                         <a href="/payment" className="bg-black text-white text-md font-medium px-6 py-2 rounded-full transition duration-300 ease-in-out hover:bg-gray-700">{t('hero.makePledge')}</a>

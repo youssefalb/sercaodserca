@@ -86,7 +86,7 @@
       },
       "buttons": {
         "addAuctionItem": "Додати лот",
-        "editAuctionItem": "Додати лот"
+        "editAuctionItem": "Редагувати лот"
       }
     },
     "confirmPurchase": {
@@ -101,7 +101,7 @@
       "makeContribution": "Зробити внесок"
     },
     "blogs": {
-      "title": "Блоги",
+      "title": "Новини",
       "addBlogPost": "Додати запис у блог",
       "readMore": "Читати більше",
       "edit": "Редагувати",
