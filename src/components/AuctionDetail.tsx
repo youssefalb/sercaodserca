@@ -282,6 +282,10 @@ const AuctionDetail: React.FC = () => {
                 title={`Confirm ${action === Action.BuyNow ? 'Purchase' : 'Bid'}`}
                 message={`Are you sure you want to ${action === Action.BuyNow ? 'buy this item now' : 'place this bid'}?`}
             />
+            <hr className="my-4 border-t border-gray-300" />
+            <p className="text-red-500 text-xs m-10">
+                We'll email the auction winner within 24 hours after the auction ends. When you get this email, please reply quickly with your payment. Remember to include your name, address, email, and last name in your reply, along with the payment proof. We need this info to confirm you won and to sort everything out quickly. If you don't send all the details, there might be delays.
+            </p>
         </div>
     );
 };
