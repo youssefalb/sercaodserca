@@ -65,7 +65,7 @@ const AuctionsSection: React.FC = () => {
                 <h2 className="text-3xl font-bold sm:mb-0 mb-4 text-center sm:text-center flex-1">{t('auctions.title')}</h2>
                 {isAdminUser(currentUser) && (
                     <button
-                        className="bg-purple hover:bg-purple text-white font-bold py-2 px-4 rounded"
+                        className="bg-purple hover:bg-black text-white font-bold py-2 px-4 rounded"
                         onClick={() => navigate('/add-auction')}
                     >
                         {t('auctions.addItem')}

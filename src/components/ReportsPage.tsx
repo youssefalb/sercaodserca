@@ -11,8 +11,8 @@ interface FileMetadata {
   name: string;
   customName: string;
   url: string;
-  uploadedDate: string; // ISO string for internal use
-  displayDate: string; // Formatted string for display
+  uploadedDate: string;
+  displayDate: string;
 }
 
 const ReportsPage: React.FC = () => {

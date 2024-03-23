@@ -28,6 +28,7 @@ import PaymentSuccess from './components/PaymentSuccess';
 import PaymentCancel from './components/PaymentCancel';
 import PaymentFailure from './components/PaymentFailure';
 import ReportsPage from './components/ReportsPage';
+import AddOrEditPartner from './AddOrEditPartner';
 
 // Load your Stripe public key
 const stripePromise = loadStripe('pk_test_51OuzPy014et4YmUMZXuPzFi7jzWRz709qgoFrFJsxaoPKz9BoMYQ881UCOP6e7KT0Xp895Lo88RzJKYLxgaJRERI00Td3l8onn');
@@ -74,6 +75,8 @@ export default function App() {
             <Route path="/add-blog-post" element={<AddOrEditBlog />} />
             <Route path="/edit-blog-post/:postId" element={<AddOrEditBlog />} />
 
+            <Route path="/add-partner" element={<AddOrEditPartner />} />
+            <Route path="/edit-partner/:partnerId" element={<AddOrEditPartner />} />
             {/* Ensure Elements wraps only the PaymentPage */}
             <Route path="/payment" element={<Elements stripe={stripePromise}><PaymentPage /></Elements>} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
@@ -83,7 +86,6 @@ export default function App() {
             <Route path="/reports" element={<ReportsPage />} />
 
           </Routes>
-
 
         </div>
         <Footer />

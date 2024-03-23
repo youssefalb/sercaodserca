@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 
 import logo from '../assets/images/logo.svg';
+import i18n from '../i18n';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,6 +38,14 @@ export default function Navbar() {
         { id: 'news', name: t('navbar.news') },
     ];
 
+    const [showLanguageOptions, setShowLanguageOptions] = useState(true);
+
+
+
+    const changeLanguage = (lng: string) => {
+        i18n.changeLanguage(lng);
+    };
+
     const handleNavLinkClick = async (id: string) => {
         if (id === 'login') {
             navigate('/login');
@@ -59,6 +68,7 @@ export default function Navbar() {
                 },
             });
         });
+        // const [showLanguageOptions, setShowLanguageOptions] = useState(false);
 
         // Clean up ScrollTriggers when component unmounts or navItems change
         return () => ScrollTrigger.getAll().forEach(trigger => trigger.kill());
@@ -101,6 +111,21 @@ export default function Navbar() {
 
                 </div>
                 {/* Desktop Menu */}
+
+                <div className="hidden lg:flex items-center space-x-4">
+                    {/* Language Switcher */}
+                    <div className="flex pl-4">
+                        <button onClick={() => changeLanguage('en')} title="English" className="p-2 hover:bg-gray-100">
+                            <img src="/en.png" alt="English" className="w-5 h-auto" />
+                        </button>
+                        <button onClick={() => changeLanguage('pl')} title="Polish" className="p-2 hover:bg-gray-100">
+                            <img src="pl.png" alt="Polish" className="w-5 h-auto" />
+                        </button>
+                        <button onClick={() => changeLanguage('ua')} title="Ukrainian" className="p-2 hover:bg-gray-100">
+                            <img src="/ua.png" alt="Ukrainian" className="w-5 h-auto" />
+                        </button>
+                    </div>
+                </div>
                 <nav className="hidden lg:flex justify-center flex-1 space-x-6 ">
                     {navItems.map((item) => (
                         <a
@@ -203,27 +228,50 @@ export default function Navbar() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
                         </svg>
                     </button>
+                    {/* <button onClick={() => setShowLanguageOptions(!showLanguageOptions)}>
+                        <span role="img" aria-label="Language" className="text-xl">🌐</span>
+                    </button> */}
 
                 </div>
             </div>
 
-            {isMenuOpen && (
-                <div className="absolute top-full right-0 w-full bg-white shadow-lg lg:hidden">
-                    <nav className="flex flex-col p-4">
-                        {navItems.map((item) => (
-                            <a
-                                key={item.id}
-                                href={`#${item.id}`}
-                                onClick={() => handleNavLinkClick(item.id)}
-                                className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
-                            >
-                                {item.name}
-                            </a>
-                        ))}
-                    </nav>
+            {
+                isMenuOpen && (
+                    <div className="absolute top-full right-0 w-full bg-white shadow-lg lg:hidden">
+                        <nav className="flex flex-col p-4">
+                            {navItems.map((item) => (
+                                <a
+                                    key={item.id}
+                                    href={`#${item.id}`}
+                                    onClick={() => {
+                                        handleNavLinkClick(item.id);
+                                        setIsMenuOpen(false); // Close the mobile menu on selection
+                                    }}
+                                    className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
+                                >
+                                    {item.name}
+                                </a>
+                            ))}
 
-                </div>
-            )}
+                            {showLanguageOptions && (
+                                <div className="flex flex-col mt-2">
+                                    <button onClick={() => changeLanguage('en')} title="English" className="flex items-center p-2 text-left">
+                                        <img src="/en.png" alt="Ukrainian" className="w-5 h-auto mr-2" /> English
+                                    </button>
+                                    <button onClick={() => changeLanguage('pl')} title="Polish" className="flex items-center p-2 text-left">
+                                        <img src="/pl.png" alt="Ukrainian" className="w-5 h-auto mr-2" /> Polski
+                                    </button>
+                                    <button onClick={() => changeLanguage('ua')} title="Ukrainian" className="flex items-center p-2 text-left">
+                                        <img src="/ua.png" alt="Ukrainian" className="w-5 h-auto mr-2" /> Українська
+                                    </button>
+
+                                </div>
+                            )}
+                        </nav>
+                    </div>
+                )
+            }
+
         </header>
     );
 }    

@@ -40,7 +40,16 @@
     },
     "partners": {
         "title": "Partners",
-        "becomePartner": "Become a Partner"
+        "becomePartner": "Become a Partner",
+        "editTitle": "Edit Partner",
+        "addTitle": "Add New Partner",
+        "name": "Name",
+        "website": "Website",
+        "logo": "Logo",
+        "enterName": "Enter partner name",
+        "enterWebsite": "Enter partner website URL",
+        "updateButton": "Update Partner",
+        "addButton": "Add Partner"
     },
     "supportArmy": {
         "title": "Support the Army",
@@ -153,5 +162,6 @@
         "download": "Download",
         "delete": "Delete"
     }
+
 
 }
