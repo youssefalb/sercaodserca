@@ -145,8 +145,15 @@
       "bank": "Bank:",
       "swiftCode": "Kod SWIFT:",
       "iban": "Konto w polskich złotych IBAN:"
-    }
-    
+    },
+    "reports": {
+    "title": "Raporty",
+    "reportName": "Nazwa raportu",
+    "publishReport": "Opublikować raport",
+    "download": "Pobrać",
+    "delete": "Usunąć"
+  }
+
   }
   
   

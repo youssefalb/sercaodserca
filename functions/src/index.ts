@@ -82,7 +82,6 @@ exports.sendEmailOnAuctionEnd = functions.firestore
                         <p>Якщо вам потрібна допомога або у вас є якісь питання, будь ласка, не соромтеся звертатися до нас.</p>
                         <p>З найкращими побажаннями,</p>
                         <p>Od Serca do Serca</p>
-
                     `,
                 },
             });

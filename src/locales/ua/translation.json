@@ -145,7 +145,16 @@
       "bank": "Банк:",
       "swiftCode": "SWIFT код:",
       "iban": "Рахунок в польських злотих IBAN:"
+  },
+  "reports": {
+    "title": "Звіти",
+    "reportName": "Назва звіту",
+    "publishReport": "Опублікувати звіт",
+    "download": "Скачати",
+    "delete": "Видалити"
   }
+
+  
   }
   
   

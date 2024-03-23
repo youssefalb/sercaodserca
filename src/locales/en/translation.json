@@ -145,6 +145,13 @@
         "bank": "Bank:",
         "swiftCode": "SWIFT Code:",
         "iban": "Account in Polish Zloty IBAN:"
-      }
-      
+      },
+    "reports": {
+        "title": "Reports",
+        "reportName": "Report name",
+        "publishReport": "Publish report",
+        "download": "Download",
+        "delete": "Delete"
+    }
+
 }
