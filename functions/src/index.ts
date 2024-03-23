@@ -61,27 +61,28 @@ exports.sendEmailOnAuctionEnd = functions.firestore
             await mailRef.set({
                 to: [newValue.currentHighestBidderEmail],
                 message: {
-                    subject: `Congratulations! You've Won the Auction for ${auctionTitle}`,
-                    text: `You have won the auction "${auctionTitle}". Please check your email for further instructions.`,
+                    subject: `Вітаємо! Ви виграли аукціон за ${auctionTitle}`,
+                    text: `Ви виграли аукціон "${auctionTitle}". Будь ласка, перевірте свою електронну пошту для отримання додаткових інструкцій.`,
                     html: `
-                        <h1>Congratulations!</h1>
-                        <p>You have successfully won the auction for <strong>${auctionTitle}</strong>.</p>
-                        <h2>Auction Details:</h2>
-                        <p><strong>Auction Title:</strong> ${auctionTitle}</p>
-                        <p><strong>Auction ID:</strong> ${auctionId}</p>
-                        <h2>Payment Instructions:</h2>
-                        <p>Please complete the payment using the bank details provided below:</p>
+                       <h1>Вітаємо!</h1>
+                        <p>Ви успішно виграли аукціон за <strong>${auctionTitle}</strong>.</p>
+                        <h2>Деталі аукціону:</h2>
+                        <p><strong>Назва аукціону:</strong> ${auctionTitle}</p>
+                        <p><strong>Ідентифікатор аукціону:</strong> ${auctionId}</p>
+                        <h2>Інструкції щодо оплати:</h2>
+                        <p>Будь ласка, завершіть оплату, використовуючи наведені нижче банківські реквізити:</p>
                         <table>
-                            <tr><td>Customer Number:</td><td>ZMW8D5</td></tr>
-                            <tr><td>Bank:</td><td>BNP PARIBAS</td></tr>
-                            <tr><td>SWIFT Code:</td><td>PRABPLPKXXX</td></tr>
+                            <tr><td>Номер клієнта:</td><td>ZMW8D5</td></tr>
+                            <tr><td>Банк:</td><td>BNP PARIBAS</td></tr>
+                            <tr><td>SWIFT Код:</td><td>PRABPLPKXXX</td></tr>
                             <tr><td>IBAN:</td><td>PL09160011721749583650000001</td></tr>
                         </table>
-                        <p>Use your Auction ID (${auctionId}) as the reference for your payment.</p>
-                        <p>After completing the payment, please reply to this email with a confirmation of the transfer and your contact information.</p>
-                        <p>If you need assistance or have any questions, please feel free to contact us.</p>
-                        <p>Warm regards,</p>
+                        <p>Використовуйте ідентифікатор вашого аукціону (${auctionId}) як референс для вашого платежу.</p>
+                        <p>Після завершення платежу, будь ласка, відповідайте на цей електронний лист із підтвердженням трансферу та вашою контактною інформацією.</p>
+                        <p>Якщо вам потрібна допомога або у вас є якісь питання, будь ласка, не соромтеся звертатися до нас.</p>
+                        <p>З найкращими побажаннями,</p>
                         <p>Od Serca do Serca</p>
+
                     `,
                 },
             });
