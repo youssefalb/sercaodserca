@@ -90,22 +90,22 @@ exports.sendEmailOnAuctionEnd = functions.firestore
     });
 
 
-    // for now commneted out because we do not want a lot of calls to the function in development
-// exports.checkAndEndAuctions = functions.pubsub.schedule('every 24 hours').onRun(async context => {
-//     const now = admin.firestore.Timestamp.now();
-//     const auctionsRef = admin.firestore().collection('auctions');
-//     console.log(`Checking for auctions that have ended before ${now.toDate()}`);
-//     console.log(`Current time: ${now.toDate()}`);
-//     console.log(`Auction: ${auctionsRef}`);
-//     const querySnapshot = await auctionsRef
-//         .where('endOfAuction', '<=', now)
-//         .where('AuctionEnded', '==', false)
-//         .get();
 
-//     querySnapshot.forEach(async (doc) => {
-//         await auctionsRef.doc(doc.id).update({
-//             AuctionEnded: true
-//         });
-//         console.log(`Auction ${doc.id} ended due to time up.`);
-//     });
-// });
+exports.checkAndEndAuctions = functions.pubsub.schedule('every 24 hours').onRun(async context => {
+    const now = admin.firestore.Timestamp.now();
+    const auctionsRef = admin.firestore().collection('auctions');
+    console.log(`Checking for auctions that have ended before ${now.toDate()}`);
+    console.log(`Current time: ${now.toDate()}`);
+    console.log(`Auction: ${auctionsRef}`);
+    const querySnapshot = await auctionsRef
+        .where('endOfAuction', '<=', now)
+        .where('AuctionEnded', '==', false)
+        .get();
+
+    querySnapshot.forEach(async (doc) => {
+        await auctionsRef.doc(doc.id).update({
+            AuctionEnded: true
+        });
+        console.log(`Auction ${doc.id} ended due to time up.`);
+    });
+});

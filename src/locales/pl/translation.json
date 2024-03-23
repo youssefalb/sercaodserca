@@ -63,7 +63,8 @@
       "buyNowPrice": "Cena Kup Teraz: ",
       "buyNow": "Kup teraz",
       "enterBid": "Wprowadź ofertę",
-      "placeBid": "Złóż ofertę"
+      "placeBid": "Złóż ofertę",
+      "disclaimer": "Wyślemy e-mail do zwycięzcy aukcji w ciągu 24 godzin po jej zakończeniu. Kiedy otrzymasz ten e-mail, prosimy o szybką odpowiedź z Twoją płatnością. Pamiętaj, aby dołączyć swoje imię, nazwisko, adres e-mail i nazwisko w swojej odpowiedzi, wraz z dowodem płatności. Potrzebujemy tych informacji, aby potwierdzić, że wygrałeś i szybko wszystko załatwić. Jeśli nie wyślesz wszystkich szczegółów, mogą wystąpić opóźnienia."
     },
     "addAuctionItem": {
       "title": "Dodaj przedmiot aukcyjny",

@@ -63,7 +63,8 @@
         "buyNowPrice": "Buy It Now Price: ",
         "buyNow": "Buy Now",
         "enterBid": "Enter bid",
-        "placeBid": "Place Bid"
+        "placeBid": "Place Bid",
+        "disclaimer": "We'll email the auction winner within 24 hours after the auction ends. When you get this email, please reply quickly with your payment. Remember to include your name, address, email, and last name in your reply, along with the payment proof. We need this info to confirm you won and to sort everything out quickly. If you don't send all the details, there might be delays."
     },
     "addAuctionItem": {
         "title": "Add Auction Item",
