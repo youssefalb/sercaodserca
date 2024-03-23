@@ -5,7 +5,7 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 import { app } from '../firebase-config';
 import { useTranslation } from 'react-i18next';
 
-const stripePromise = loadStripe('pk_test_51OuzPy014et4YmUMZXuPzFi7jzWRz709qgoFrFJsxaoPKz9BoMYQ881UCOP6e7KT0Xp895Lo88RzJKYLxgaJRERI00Td3l8onn');
+const stripePromise = loadStripe('pk_live_51OvyokILEOaelI4Jmr12fD3ivGNmg06WIK1fcVhs4nj8FLEut9LiWIAOKe6qbyD5vf4g2vkv73SNIw5Tu4Sq4m7E00kwQQu1rj');
 
 interface CreateSessionResponse {
     sessionId: string;

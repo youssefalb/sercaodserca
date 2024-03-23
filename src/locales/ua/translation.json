@@ -32,7 +32,7 @@
       "slogan": "З Україною",
       "slogan1": "в серці",
       "makePledge": "Зробити внесок",
-      "learnMore": "Дізнатись більше"
+      "learnMore": "Звіти"
     },
     "about": {
       "title": "Про фонд",
@@ -87,7 +87,7 @@
       },
       "buttons": {
         "addAuctionItem": "Додати лот",
-        "editAuctionItem": "Додати лот"
+        "editAuctionItem": "Редагувати лот"
       }
     },
     "confirmPurchase": {
@@ -102,7 +102,7 @@
       "makeContribution": "Зробити внесок"
     },
     "blogs": {
-      "title": "Блоги",
+      "title": "Новини",
       "addBlogPost": "Додати запис у блог",
       "readMore": "Читати більше",
       "edit": "Редагувати",
