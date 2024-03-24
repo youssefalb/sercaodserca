@@ -49,7 +49,7 @@ const Partners: React.FC = () => {
                         className="text-white bg-purple px-4 py-2 rounded-md hover:bg-black"
                         onClick={() => navigate('/add-partner')}
                     >
-                        Add Partner
+                        Додати партнера
                     </button>
                 )}
             </div>

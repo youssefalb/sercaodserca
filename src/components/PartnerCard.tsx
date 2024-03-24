@@ -25,13 +25,14 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ id, name, logo, website, onDe
     };
 
     return (
-        <div className="border border-gray-300 rounded-lg overflow-hidden m-2 shadow-sm hover:shadow-xl transition-shadow duration-300 ease-in-out">
+        <div className="flex flex-col items-center border border-gray-300 rounded-2xl overflow-hidden m-2 shadow-sm hover:shadow-xl transition-shadow duration-300 ease-in-out">
             <img src={logo} alt={name} className="h-52 w-52 object-contain" />
             <div className="p-4">
+                <p className='p-4'>{name}</p>
                 {isAdminUser(currentUser) && (
                     <div className="flex justify-center space-x-2">
-                        <button onClick={() => navigate(`/edit-partner/${id}`)} className="text-white bg-black px-3 py-2 rounded-md hover:bg-blue-700">Edit</button>
-                        <button onClick={handleDelete} className="text-white bg-red-500 px-3 py-2 rounded-md hover:bg-red-700">Delete</button>
+                        <button onClick={() => navigate(`/edit-partner/${id}`)} className="text-white bg-black px-3 py-2 rounded-md hover:bg-blue-700">Редагувати</button>
+                        <button onClick={handleDelete} className="text-white bg-red-500 px-3 py-2 rounded-md hover:bg-red-700">Видалити</button>
                     </div>
                 )}
             </div>
