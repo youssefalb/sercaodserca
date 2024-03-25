@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { ref, uploadBytes, getDownloadURL, listAll, deleteObject } from 'firebase/storage';
-import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, deleteDoc, doc, Timestamp } from 'firebase/firestore';
 import { storage, db } from '../firebase-config';
 import { isAdminUser } from '../utils/AuthUtils';
 import { useAuth } from '../AuthContext';
 import { useTranslation } from 'react-i18next';
+
 
 interface FileMetadata {
   id: string;
@@ -28,20 +29,19 @@ const ReportsPage: React.FC = () => {
     setLoading(true);
     const filesCol = collection(db, 'reports');
     const filesSnapshot = await getDocs(filesCol);
+
+
     const filesList = filesSnapshot.docs.map(doc => {
       const data = doc.data();
-      // Check if 'uploadedDate' exists and is a Timestamp; convert if necessary
-      const uploadedDate = data.uploadedDate && typeof data.uploadedDate.toDate === 'function' 
-                            ? data.uploadedDate.toDate().toISOString()
-                            : (new Date()).toISOString(); // Fallback to current date if unavailable or not a Timestamp
-      const displayDate = new Date(uploadedDate).toLocaleString('en-US', {
+      const uploadedDate = data.uploadedDate.toDate(); // Convert Firestore Timestamp to JavaScript Date
+      const displayDate = uploadedDate.toLocaleString('en-US', {
         year: 'numeric', month: 'numeric', day: 'numeric',
         hour: '2-digit', minute: '2-digit'
       });
       return {
         id: doc.id,
         ...data,
-        uploadedDate: uploadedDate, // Keep as ISO string for sorting
+        uploadedDate: uploadedDate.toISOString(), // Keep as ISO string for sorting if needed
         displayDate: displayDate // Human-readable format
       };
     }) as FileMetadata[];
@@ -50,7 +50,7 @@ const ReportsPage: React.FC = () => {
 
     setFiles(filesList);
     setLoading(false);
-};
+  };
 
 
   useEffect(() => {
@@ -62,18 +62,19 @@ const ReportsPage: React.FC = () => {
       const storageRef = ref(storage, `reports/${file.name}`);
       const snapshot = await uploadBytes(storageRef, file);
       const url = await getDownloadURL(snapshot.ref);
-      const uploadedDate = new Date().toISOString();
+      const uploadedDate = Timestamp.fromDate(new Date()); // Convert current date to Firestore Timestamp
       await addDoc(collection(db, 'reports'), {
         name: file.name,
         customName: customName || file.name,
         url: url,
-        uploadedDate: uploadedDate
+        uploadedDate: uploadedDate // Use Firestore Timestamp
       });
       setCustomName('');
       setFile(null);
-      fetchFiles();
+      fetchFiles(); // Refresh the list after uploading
     }
   };
+
 
   const deleteFile = async (fileId: string, storagePath: string) => {
     await deleteDoc(doc(db, 'reports', fileId));
