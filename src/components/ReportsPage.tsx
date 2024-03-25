@@ -30,15 +30,18 @@ const ReportsPage: React.FC = () => {
     const filesSnapshot = await getDocs(filesCol);
     const filesList = filesSnapshot.docs.map(doc => {
       const data = doc.data();
-      const uploadedDateISO = data.uploadedDate.toDate().toISOString();
-      const displayDate = new Date(uploadedDateISO).toLocaleString('en-US', {
+      // Check if 'uploadedDate' exists and is a Timestamp; convert if necessary
+      const uploadedDate = data.uploadedDate && typeof data.uploadedDate.toDate === 'function' 
+                            ? data.uploadedDate.toDate().toISOString()
+                            : (new Date()).toISOString(); // Fallback to current date if unavailable or not a Timestamp
+      const displayDate = new Date(uploadedDate).toLocaleString('en-US', {
         year: 'numeric', month: 'numeric', day: 'numeric',
         hour: '2-digit', minute: '2-digit'
       });
       return {
         id: doc.id,
         ...data,
-        uploadedDate: uploadedDateISO, // Keep as ISO string for sorting
+        uploadedDate: uploadedDate, // Keep as ISO string for sorting
         displayDate: displayDate // Human-readable format
       };
     }) as FileMetadata[];
@@ -47,7 +50,8 @@ const ReportsPage: React.FC = () => {
 
     setFiles(filesList);
     setLoading(false);
-  };
+};
+
 
   useEffect(() => {
     fetchFiles();
