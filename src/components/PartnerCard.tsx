@@ -24,8 +24,12 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ id, name, logo, website, onDe
         }
     };
 
+    const goToWebsite = () => {
+        window.open(website, '_blank');
+    };
+
     return (
-        <div className="border border-gray-300 rounded-lg overflow-hidden m-2 shadow-sm hover:shadow-xl transition-shadow duration-300 ease-in-out">
+        <div onClick={goToWebsite} className="border border-gray-300 rounded-lg overflow-hidden m-2 shadow-sm hover:shadow-xl transition-shadow duration-300 ease-in-out">
             <img src={logo} alt={name} className="h-52 w-52 object-contain" />
             <div className="p-4">
                 {isAdminUser(currentUser) && (
